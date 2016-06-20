@@ -1,0 +1,14 @@
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409 355.67">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: none;
+                stroke: #025;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 9px;
+            }
+        </style>
+    </defs>
+    <polyline class="cls-1" points="277.83 191.17 344.5 64.5 404.5 64.5 291.17 291.17 144.5 4.5"/><polyline class="cls-1" points="144.5 191.17 117.83 191.17 64.5 291.17 4.5 291.17 117.83 64.5 264.5 351.17"/>
+</svg>
