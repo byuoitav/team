@@ -5,7 +5,7 @@
 docker pull byuoitav/raspi-tp:latest
 docker kill raspi-tp
 docker rm raspi-tp
-docker run -e PI_TOUCHPANEL="true" --restart=always -d -p 80:80 byuoitav/raspi-tp:latest
+docker run -e PI_TOUCHPANEL="true" --restart=always -d --name raspi-tp -p 80:80 byuoitav/raspi-tp:latest
 
 docker pull byuoitav/rpi-av-api:latest
 docker kill av-api
