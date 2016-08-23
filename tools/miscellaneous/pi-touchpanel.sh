@@ -2,11 +2,6 @@
 
 # Sets up local AV API Docker containers on a Raspberry Pi touchpanel (run after drydock.sh for best effect)
 
-docker pull byuoitav/raspi-tp:latest
-docker kill raspi-tp
-docker rm raspi-tp
-docker run -e PI_TOUCHPANEL="true" --restart=always -d --name raspi-tp -p 8888:8888 byuoitav/raspi-tp:latest
-
 docker pull byuoitav/rpi-av-api:latest
 docker kill av-api
 docker rm av-api
@@ -22,7 +17,17 @@ docker kill pjlink-service
 docker rm pjlink-service
 docker run -e PI_TOUCHPANEL="true" -d --restart=always --name pjlink-service -p 8005:8005 byuoitav/rpi-pjlink-microservice:latest
 
+docker pull byuoitav/rpi-configuration-database-microservice:latest
+docker kill configuration-database-microservice
+docker rm configuration-database-microservice
+docker run -e PI_TOUCHPANEL="true" -e CONFIGURATION_DATABASE_USERNAME=$CONFIGURATION_DATABASE_USERNAME -e CONFIGURATION_DATABASE_PASSWORD=$CONFIGURATION_DATABASE_PASSWORD -e CONFIGURATION_DATABASE_HOST=$CONFIGURATION_DATABASE_HOST -e CONFIGURATION_DATABASE_PORT=$CONFIGURATION_DATABASE_PORT -e CONFIGURATION_DATABASE_NAME=$CONFIGURATION_DATABASE_NAME -d --restart=always --name configuration-database-microservice -p 8006:8006 byuoitav/rpi-sony-control-microservice:latest
+
 docker pull byuoitav/rpi-sony-control-microservice:latest
 docker kill sony-control-microservice
 docker rm sony-control-microservice
 docker run -e PI_TOUCHPANEL="true" -e SONY_TV_PSK=$SONY_TV_PSK -d --restart=always --name sony-control-microservice -p 8007:8007 byuoitav/rpi-sony-control-microservice:latest
+
+docker pull byuoitav/raspi-tp:latest
+docker kill raspi-tp
+docker rm raspi-tp
+docker run -e PI_TOUCHPANEL="true" --restart=always -d --name raspi-tp -p 8888:8888 byuoitav/raspi-tp:latest
