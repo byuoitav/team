@@ -35,7 +35,7 @@ external_auth:
 Now that Eauth is set up you can run salt commands with `salt -a pam <command>` and Salt will prompt you for a password.
 To create a token (for sequential commands) add the `-T` flag. `salt -T -a pam <command>`
 
-#Setting up a heartbeat Beacon 
+# Setting up a heartbeat Beacon 
 See documentation [here](https://docs.saltstack.com/en/latest/topics/beacons/)
 A heartbeat beacon will send an event to the salt master every 10 seconds
 1. Add the following code into the `etc/salt/minion` file
