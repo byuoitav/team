@@ -50,4 +50,22 @@ beacons:
 ```
 > You may see a depreciation error like `[WARNING ] /usr/lib/python2.7/site-packages/salt/beacons/__init__.py:56: DeprecationWarning: Beacon configuration should be a list instead of a dictionary.` This is a known bug with the version of SALT we're using. See [here](https://github.com/saltstack/salt/issues/38121) - it appears as though it will be fixed in the next release.
 
+# Installing Salt on a Pi
+Follow instructions found [here](https://repo.saltstack.com/#raspbian). Note that we're using the 2016.11 release currently. And you will need to select the 'Pin to Major Version option' The version specific URLs are:
+
+- `wget -O - https://repo.saltstack.com/apt/debian/8/armhf/2016.11/SALTSTACK-GPG-KEY.pub | sudo apt-key add -`
+- `deb http://repo.saltstack.com/apt/debian/8/armhf/2016.11 jessie main`
+
+Only install `salt-minion`
+
+### Configure the pi
+1. Based on instructions found [here](https://docs.saltstack.com/en/latest/ref/configuration/index.html)
+1. On the salt master run `salt1.key -F master` and copy the master.pub value.
+1. Set the copied value as the value of `master_finger` in `/etc/salt/minion` on the minion
+1. In `/etc/salt/minion` on the minion set `master` to the hostname of the master server.
+1. Be sure to restart the minion using `systemctl restart salt-minion`
+1. Follow the instructions found [here](https://docs.saltstack.com/en/latest/ref/configuration/index.html#key1.management) to accept the minion key on the master.
+1. Validate by following instructions found [here](https://docs.saltstack.com/en/latest/ref/configuration/index.html#sending-commands)
+
+
 
