@@ -30,12 +30,12 @@ external_auth:
       av_eng%:
             - .*
 ```
-1. Restart salt-master service `systemctl restart salt-master`
+3. Restart salt-master service `systemctl restart salt-master`
 
 Now that Eauth is set up you can run salt commands with `salt -a pam <command>` and Salt will prompt you for a password.
 To create a token (for sequential commands) add the `-T` flag. `salt -T -a pam <command>`
 
-#Setting up a heartbeat Beacon 
+# Setting up a heartbeat Beacon 
 See documentation [here](https://docs.saltstack.com/en/latest/topics/beacons/)
 A heartbeat beacon will send an event to the salt master every 10 seconds
 1. Add the following code into the `etc/salt/minion` file
@@ -45,8 +45,9 @@ beacons:
         - interval: 10
         - time:
             - all
-        - cpustats:
-            - all
-        - meminfo:
+        - loadavg:
             - all
 ```
+> You may see a depreciation error like `[WARNING ] /usr/lib/python2.7/site-packages/salt/beacons/__init__.py:56: DeprecationWarning: Beacon configuration should be a list instead of a dictionary.` This is a known bug with the version of SALT we're using. See [here](https://github.com/saltstack/salt/issues/38121) - it appears as though it will be fixed in the next release.
+
+
