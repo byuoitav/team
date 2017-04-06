@@ -1,6 +1,11 @@
 # Install Salt Master
 > Note that if you see an error like `Cannot open: https://repo.saltstack.com/yum/redhat/salt-repo-2016.11-1.el7.noarch.rpm. Skipping.` when adding the repo you'll need to talk to the platform team to get the repo added. 
-
+1. Talk to the newtorking team and let them know that you'll need your server to be reachable from the AV VRF.
+1. Add the following lines into the `/etc/sysconfig/iptables` file to allow salt connections through the firewall:
+    #Salt Stack Allow
+    -A INPUT -m state --state new -m tcp -p tcp --dport 4505 -j ACCEPT
+    -A INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT
+1. Reload the iptables with `systemctl reload iptables`
 1. Follow instructions found [here](https://repo.saltstack.com/#rhel)
 1. Install `salt1.master` and `salt1.minion`
 1. Run `systemctl start salt1.master`
