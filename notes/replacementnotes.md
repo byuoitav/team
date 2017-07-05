@@ -2,9 +2,10 @@
 
 ## Case Hardware Failure
 > If the failed pi is still responding on the network you'll have to unplug them before readressing the replacement.
+> You can perform steps 2+ AFTER putting the new pi in the room, but they can be done before as well. 
 
 1. Flash a replacement pi (You can have a PI preflashed, see the note about pre-flashing.)
-        > You can perform all these steps AFTER putting the new pi in the room, but they can be done before as well. 
+        
 1. SSH into the replacement pi from a terminal (PUTTY or bash) via: 
 
         ssh pi@{HOSTNAME}.byu.edu
