@@ -18,7 +18,6 @@
 1. Follow the instructions found [here](https://docs.saltstack.com/en/latest/ref/configuration/index.html#key1.management) to accept the minion key.
 1. Validate by following instructions found [here](https://docs.saltstack.com/en/latest/ref/configuration/index.html#sending-commands)
 
-
 # Set up Eauth
 You have to set up Eaut (External-Authentication) so that we can run salt commands as non-root users.
 Based on Instructions found [here](https://docs.saltstack.com/en/latest/topics/eauth/index.html)
@@ -40,6 +39,40 @@ external_auth:
 Now that Eauth is set up you can run salt commands with `salt -a pam <command>` and Salt will prompt you for a password.
 To create a token (for sequential commands) add the `-T` flag. `salt -T -a pam <command>`
 
+# Set up Web API 
+Instructions found [here](https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html)
+1. After having installed Salt-Master run `yum install salt-api`
+1. Create a self signed cert using 
+    salt-call --local tls.create_self_signed_cert
+1. Ensure that Eauth has been set up
+1. Add an entry ot the iptables to allow port 8000 access,
+    -A INPUT -m state --state new -m tcp -p tcp --dport 8000 -j ACCEPT
+1. Add the entries into the master config file `/etc/salt/master`
+    rest_cherrypy:
+      port: 8000
+      ssl_crt: /etc/pki/tls/certs/localhost.crt
+      ssl_key: /etc/pki/tls/certs/localhost.key
+1. Reload the IPTables `systemctl reload iptables`
+1. Restart salt-master `systemctl restart salt-master`
+1. Restart the salt-api `systemctl start salt-api`
+
+
+# Authenticating against the WebAPI
+Instructions found [here](https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html#login)
+
+Example Request
+```
+curl -sSk https://localhost:8000/login \
+    -H 'Accept: application/json' \
+    -d username=$SALT_EVENT_USERNAME \
+    -d password=$SALT_EVENT_PASSWORD \
+    -d eauth=pam
+```
+
+The response will have a `token` field. Include this value as an `X-Auth-Token` header in subsequent requests to authenticate
+
+
+
 # Setting up a heartbeat Beacon 
 See documentation [here](https://docs.saltstack.com/en/latest/topics/beacons/)
 A heartbeat beacon will send an event to the salt master every 10 seconds
@@ -47,10 +80,10 @@ A heartbeat beacon will send an event to the salt master every 10 seconds
 ```
 beacons:
     status:
-        - interval: 10
-        - time:
+        interval: 10
+        time:
             - all
-        - loadavg:
+        loadavg:
             - all
 ```
 > You may see a depreciation error like `[WARNING ] /usr/lib/python2.7/site-packages/salt/beacons/__init__.py:56: DeprecationWarning: Beacon configuration should be a list instead of a dictionary.` This is a known bug with the version of SALT we're using. See [here](https://github.com/saltstack/salt/issues/38121) - it appears as though it will be fixed in the next release.
