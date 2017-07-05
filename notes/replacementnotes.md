@@ -3,19 +3,25 @@
 ## Case Hardware Failure
 > If the failed pi is still responding on the network you'll have to unplug them before readressing the replacement.
 
+> You can perform steps 2+ AFTER putting the new pi in the room, but they can be done before as well. 
+
 1. Flash a replacement pi (You can have a PI preflashed, see the note about pre-flashing.)
-> You can perform all these steps AFTER putting the new pi in the room, but they can be done before hand as well. 
+        
 1. SSH into the replacement pi from a terminal (PUTTY or bash) via: 
-    ssh pi@{HOSTNAME}.byu.edu
-    e.g. ssh pi@ITB-1101-CP1.byu.edu
+
+        ssh pi@{HOSTNAME}.byu.edu
+        e.g. ssh pi@ITB-1101-CP1.byu.edu
 1. Download the readdressing script onto the replacement pi
-    wget https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/changeroom.sh
-1. Run the readdressing script on the replacement pi
-    sudo chmod +x ./changeroom.sh
-    sudo ./changeroom.sh
+ 
+        wget https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/changeroom.sh
+1. Run the readdressing script on the replacement pi 
+
+        sudo chmod +x ./changeroom.sh
+        sudo ./changeroom.sh
 1. When prometed, enter the new hostname and IP address
 1. Reboot the pi
-    sudo reboot
+   
+        sudo reboot
 1. The pi will now control the room, so be careful touching it when it comes back up
 1. Replace the broken PI with the new one. 
 1. Reflash the broken SD Card before placing in a new pi. 
