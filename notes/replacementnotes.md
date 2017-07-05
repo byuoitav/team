@@ -9,7 +9,6 @@
 
         ssh pi@{HOSTNAME}.byu.edu
         e.g. ssh pi@ITB-1101-CP1.byu.edu
-    
 1. Download the readdressing script onto the replacement pi
  
         wget https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/changeroom.sh
