@@ -23,6 +23,7 @@
 * If it still does not come up - check the docker status with 
         docker ps 
   after ssh-ing into the pi. You should see something like: 
+  
           CONTAINER ID        IMAGE                                                          COMMAND                  CREATED             STATUS              PORTS               NAMES
           87c0f9023d4f        byuoitav/rpi-pjlink-microservice:development                   "/usr/bin/entry.sh..."   2 hours ago         Up 2 hours                              tmp_pjlink-microservice_1
           daf8eaa33c14        byuoitav/rpi-adcp-control-microservice:development             "/usr/bin/entry.sh..."   2 hours ago         Up 2 hours                              tmp_adcp-control-microservice_1
