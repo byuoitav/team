@@ -6,8 +6,10 @@
 1. Flash a replacement pi (You can have a PI preflashed, see the note about pre-flashing.)
 > You can perform all these steps AFTER putting the new pi in the room, but they can be done before as well. 
 1. SSH into the replacement pi from a terminal (PUTTY or bash) via: 
+
     ssh pi@{HOSTNAME}.byu.edu
     e.g. ssh pi@ITB-1101-CP1.byu.edu
+    
 1. Download the readdressing script onto the replacement pi
     wget https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/changeroom.sh
 1. Run the readdressing script on the replacement pi
