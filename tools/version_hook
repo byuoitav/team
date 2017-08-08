@@ -6,7 +6,8 @@ newVersion = ""
 
 with open("./version.txt", 'w+') as f: 
     f.seek(0,0)
-    curversion = f.readline();
+    curversion = f.readline()
+    print("v" + curversion)
     if curversion == '':
         #it's the first time ever!!!
         f.write('0.0.0')
