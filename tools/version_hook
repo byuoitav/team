@@ -27,6 +27,8 @@ with open("./version.txt", 'r+') as f:
     
 print('incrementing version to ' + newVersion)
 
+with open("./version.txt", 'w+') as f:
+    f.write(newVersion)
 
 #now we add it to the commit to be committed. 
 os.system('git add ./version.txt')
