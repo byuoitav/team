@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import os
+
+newVersion = ""
+
+with open("./version.txt", 'r+') as f: 
+    curversion = f.readline();
+    if curversion == '':
+        #it's the first time ever!!!
+        f.write('0.0.0')
+        exit(0)
+    nums = curversion.split('.')
+
+    #increment the last number
+    newNum = int(nums[2]) + 1 
+    newVersion = nums[0] + "." + nums[1] + "." + str(newNum)
+    
+print('incrementing version to ' + newVersion)
+
+with open("./version.txt", 'w') as f:
+    f.write(newVersion)
+
+#now we add it to the commit to be committed. 
+os.system('git add ./version.txt')
