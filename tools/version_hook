@@ -4,6 +4,9 @@ import os
 
 newVersion = ""
 
+if open("./version.txt", "w+"): 
+    print("here")
+
 with open("./version.txt", 'r+') as f: 
     curversion = f.readline();
     if curversion == '':
