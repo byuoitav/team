@@ -4,12 +4,11 @@ import os
 
 newVersion = ""
 
-print("prjkfdljasf")
 with open("./version.txt", 'w+') as f: 
-    print("prjkfdljasf")
     curversion = f.readline();
     if curversion == '':
         #it's the first time ever!!!
+        print('here')
         f.write('0.0.0')
         exit(0)
     nums = curversion.split('.')
