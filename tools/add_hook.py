@@ -19,7 +19,7 @@ for a in repos:
         os.remove(byuoitavdir + "/" + a + "/.git/hooks/pre-commit")
     #create the link
     print("creating symlink")
-    os.symlink(byuoitavdir + "/team/tools/version_hook", byuoitavdir + "/" + a + "/.git/hooks/pre-commit")
+    os.symlink(byuoitavdir + "/team/tools/version_hook", byuoitavdir + a + "/.git/hooks/pre-commit")
     print("setting execution rights")
     st = os.stat(byuoitavdir + "/" + a + "/.git/hooks/pre-commit")
     os.chmod( byuoitavdir + "/" + a + "/.git/hooks/pre-commit", st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
