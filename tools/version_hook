@@ -5,7 +5,11 @@ import os
 newVersion = ""
 
 if open("./version.txt", "w+"): 
-    print("here")
+    f = open("./version.txt", "w+")
+    f.seek(0,0)
+    print("Creating version.txt")
+    f.write('0.0.0')
+    exit(0)
 
 with open("./version.txt", 'r+') as f: 
     curversion = f.readline();
