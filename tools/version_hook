@@ -4,6 +4,7 @@ import os
 
 newVersion = ""
 
+print("prjkfdljasf")
 with open("./version.txt", 'w+') as f: 
     curversion = f.readline();
     if curversion == '':
