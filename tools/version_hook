@@ -10,6 +10,7 @@ with open("./version.txt", 'w+') as f:
     print("v" + curversion)
     if curversion == '':
         #it's the first time ever!!!
+        print("Creating version.txt")
         f.write('0.0.0')
         exit(0)
     nums = curversion.split('.')
