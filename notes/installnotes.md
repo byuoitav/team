@@ -13,7 +13,8 @@
 * You can enable both in the Web UI. 
 
 ## TV
-* The TV must have IP control enabled
+* The TV must have IP control enabled, authentication set to 'Normal and Pre-Shared Key'. The Pre-Shared key must be set. 
+    * This is done in Nework Settings -> Home Network -> IP Control
 * It is recommended that you disable automatic updates, as it will turn off ip control every time it updates. 
 
 # Other Pi issues
@@ -46,4 +47,6 @@
 * Wait 2 or so minutes and then check the `docker ps` command again - the `Created` column should show the docker containers got rebuilt. 
 * At this point, reboot the pi - if there are still issues, call Engineering. 
 
-
+### Bad UI Config
+![Screen with stopped messages] (https://github.com/byuoitav/team/raw/master/images/bad-ui-config.jpg)
+If you see this screen where the errors DO NOT disapper, it is usually caused by a bad UI config. Traditionally that there is a device in the UI config not found in the room configuration returned from the Database. 
