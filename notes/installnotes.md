@@ -50,3 +50,5 @@
 ### Bad UI Config
 ![Screen with stopped messages] (https://github.com/byuoitav/team/raw/master/images/bad-ui-config.jpg)
 If you see this screen where the errors DO NOT disapper, it is usually caused by a bad UI config. Traditionally that there is a device in the UI config not found in the room configuration returned from the Database. 
+
+
