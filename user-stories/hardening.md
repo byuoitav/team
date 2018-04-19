@@ -67,3 +67,9 @@
 1. As an install technician / support technician I would like deployments to take less time. 
 
 1. As a developer I want to be able to offload all day to day installation and troubleshooting tasks to the installers and support team
+
+1. As a user I want to be able to schedule meetings at the scheduling panel.
+
+1. As a user I want to be able to view a schedule of the room. 
+
+1. As a developer/install technican I would like to integrate scheduling and PiCS deployments so I only have one thing to maintain and one deployment path. 
