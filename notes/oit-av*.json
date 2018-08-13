@@ -1,0 +1,142 @@
+{
+  "template": "oit-av*",
+  "order": 2,
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "_default_": {
+      "_all": {
+        "enabled": true,
+        "norms": false
+      },
+      "dynamic_templates": [
+        {
+          "message_field": {
+            "match": "message",
+            "match_mapping_type": "string",
+            "mapping": {
+              "fielddata": {
+                "format": "disabled"
+              },
+              "fields": {
+                "raw": {
+                  "ignore_above": 256,
+                  "index": "not_analyzed",
+                  "type": "string",
+                  "doc_values": true
+                }
+              },
+              "index": "analyzed",
+              "omit_norms": true,
+              "type": "string"
+            }
+          }
+        },
+        {
+          "string_fields": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "fielddata": {
+                "format": "disabled"
+              },
+              "fields": {
+                "raw": {
+                  "ignore_above": 256,
+                  "index": "not_analyzed",
+                  "type": "string",
+                  "doc_values": true
+                }
+              },
+              "index": "analyzed",
+              "omit_norms": true,
+              "type": "string"
+            }
+          }
+        },
+        {
+          "double_fields": {
+            "match": "*",
+            "match_mapping_type": "double",
+            "mapping": {
+              "doc_values": true,
+              "type": "double"
+            }
+          }
+        },
+        {
+          "long_fields": {
+            "match": "*",
+            "match_mapping_type": "long",
+            "mapping": {
+              "doc_values": true,
+              "type": "long"
+            }
+          }
+        },
+        {
+          "date_fields": {
+            "match": "*",
+            "match_mapping_type": "date",
+            "mapping": {
+              "doc_values": true,
+              "type": "date"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "@version": {
+          "type": "keyword"
+        },
+        "event-cause-string": {
+          "type": "keyword"
+        },
+        "event-type-string": {
+          "type": "keyword"
+        },
+        "event": {
+          "properties": {
+            "type": {
+              "type": "long"
+            },
+            "requestor": {
+              "type": "keyword"
+            },
+            "eventCause": {
+              "type": "long"
+            },
+            "device": {
+              "type": "keyword"
+            },
+            "eventInfoKey": {
+              "type": "keyword"
+            },
+            "eventInfoValue": {
+              "type": "text"
+            }
+          }
+        },
+        "hostname": {
+          "type": "keyword"
+        },
+        "timestamp": {
+          "type": "date"
+        },
+        "building": {
+          "type": "keyword"
+        },
+        "room": {
+          "type": "keyword"
+        },
+        "localEnvironment": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
