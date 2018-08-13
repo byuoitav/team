@@ -1,0 +1,194 @@
+{
+    "template": "oit-static-av-devices*",
+    "order": 1,
+    "settings": {
+        "number_of_shards": 1
+    },
+    "mappings": {
+        "_default_": {
+            "_all": {
+                "enabled": true,
+                "norms": false
+            },
+            "dynamic_templates": [
+                {
+                    "message_field": {
+                        "match": "message",
+                        "match_mapping_type": "string",
+                        "mapping": {
+                            "fielddata": {
+                                "format": "disabled"
+                            },
+                            "fields": {
+                                "raw": {
+                                    "ignore_above": 256,
+                                    "index": "not_analyzed",
+                                    "type": "string",
+                                    "doc_values": true
+                                }
+                            },
+                            "index": "analyzed",
+                            "omit_norms": true,
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "string_fields": {
+                        "match": "*",
+                        "match_mapping_type": "string",
+                        "mapping": {
+                            "fielddata": {
+                                "format": "disabled"
+                            },
+                            "fields": {
+                                "raw": {
+                                    "ignore_above": 256,
+                                    "index": "not_analyzed",
+                                    "type": "string",
+                                    "doc_values": true
+                                }
+                            },
+                            "index": "analyzed",
+                            "omit_norms": true,
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "double_fields": {
+                        "match": "*",
+                        "match_mapping_type": "double",
+                        "mapping": {
+                            "doc_values": true,
+                            "type": "double"
+                        }
+                    }
+                },
+                {
+                    "long_fields": {
+                        "match": "*",
+                        "match_mapping_type": "long",
+                        "mapping": {
+                            "doc_values": true,
+                            "type": "long"
+                        }
+                    }
+                },
+                {
+                    "date_fields": {
+                        "match": "*",
+                        "match_mapping_type": "date",
+                        "mapping": {
+                            "doc_values": true,
+                            "type": "date"
+                        }
+                    }
+                }
+            ],
+            "properties": {
+                "@timestamp": {
+                    "type": "date"
+                },
+                "@version": {
+                    "type": "keyword"
+                },
+                "alerts": {
+                    "properties": {
+                        "lost-heartbeat": {
+                            "properties": {
+                                "alert-sent": {
+                                    "type": "date"
+                                },
+                                "alerting": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "text",
+                                    "norms": false,
+                                    "fields": {
+                                        "raw": {
+                                            "type": "keyword",
+                                            "ignore_above": 256
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "notify": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "alerting": {
+                    "type": "boolean"
+                },
+                "building": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                },
+                "control": {
+                    "type": "keyword",
+                    "norms": false,
+                    "fields": {
+                        "raw": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "enable-notifications": {
+                    "type": "keyword",
+                    "norms": false,
+                    "fields": {
+                        "raw": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "hostname": {
+                    "type": "keyword"
+                },
+                "input": {
+                    "type": "keyword"
+                },
+                "last-heartbeat": {
+                    "type": "date"
+                },
+                "last-state-recieved": {
+                    "type": "date"
+                },
+                "power": {
+                    "type": "keyword"
+                },
+                "room": {
+                    "type": "keyword"
+                },
+                "suppress-notifications": {
+                    "type": "keyword",
+                    "norms": false,
+                    "fields": {
+                        "raw": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "view-dashboard": {
+                    "type": "keyword",
+                    "norms": false,
+                    "fields": {
+                        "raw": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "volume": {
+                    "type": "long"
+                }
+            }
+        }
+    }
+}
