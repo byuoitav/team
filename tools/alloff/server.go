@@ -16,7 +16,7 @@ import (
 	"github.com/byuoitav/common/structs"
 )
 
-var version = "0.4"
+var version = "0.5"
 
 func main() {
 	log.L.Infof("Version: %v", version)
@@ -31,7 +31,7 @@ func main() {
 	split := strings.Split(host, "-")
 
 	//get the list of devices
-	db := db.GetDB()
+	db := db.GetDBWithCustomAuth(os.Getenv("COUCH_ADDR"), os.Getenv("COUCH_USER"), os.Getenv("COUCH_PASS"))
 	devs, err := db.GetDevicesByRoomAndRole(rm, "VideoOut")
 	if err != nil {
 		log.L.Errorf("Couldn't get Video out devices in the room to turn off: %v.", err.Error())
@@ -78,4 +78,27 @@ func main() {
 	}
 
 	log.L.Infof("Finished running. Response Code: %v. Response Body: %s", resp.StatusCode, out)
+	log.L.Infof("Refreshing")
+
+	client = http.Client{
+		Timeout: 5 * time.Second,
+	}
+	req, err = http.NewRequest("PUT", fmt.Sprintf("http://localhost:8888/refresh"), nil)
+	if err != nil {
+		log.L.Fatalf("Couldn't create request: %v", err.Error())
+	}
+
+	req.Header.Add("content-type", "application/json")
+
+	resp1, err := client.Do(req)
+	if err != nil {
+		log.L.Fatalf("Couldn't make request", err.Error())
+	}
+	if resp1.StatusCode/100 != 2 {
+		log.L.Fatalf("Non-200 received", err.Error())
+	}
+
+	defer resp1.Body.Close()
+	log.L.Infof("done refreshing..")
+
 }
