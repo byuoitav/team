@@ -1,0 +1,6 @@
+{
+    "name": "central-event-hub",
+    "port": ":7100", 
+    "env-vars": [
+    ]
+}
