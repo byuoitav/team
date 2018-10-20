@@ -15,6 +15,7 @@ import (
 func main() {
 	branch := flag.String("b", "development", "the branch to deploy to")
 	config := flag.String("c", "./config.json", "the location of the config file")
+	newService := flag.Bool("n", false, "Create a new cluster, service, load balancer, etc.")
 
 	DBName := flag.String("dbname", "deployment-information", "The user to log into the database with")
 
@@ -30,16 +31,23 @@ func main() {
 		log.L.Fatalf(err.Error())
 	}
 
-	taskConfig, err := buildAWSConfig(configwrap, configdef, *DBName, *branch)
-	if err != nil {
-		log.L.Fatalf(err.Error())
-	}
+	if *newService {
+		//we need to create the cluster, etc. etc.a
 
-	b, err := json.MarshalIndent(taskConfig, "", " ")
-	if err != nil {
-		log.L.Fatalf(err.Error())
+	} else {
+
+		taskConfig, err := buildAWSConfig(configwrap, configdef, *DBName, *branch)
+		if err != nil {
+			log.L.Fatalf(err.Error())
+		}
+
+		b, err := json.MarshalIndent(taskConfig, "", " ")
+		if err != nil {
+			log.L.Fatalf(err.Error())
+		}
+
+		fmt.Printf("%s", b)
 	}
-	fmt.Printf("%s", b)
 }
 
 //ReadConfigFile .
