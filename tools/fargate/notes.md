@@ -1,4 +1,4 @@
-## Things that need to be defined at the task/branch levelhhh
+## Things that need to be defined at the task/branch level
 - Desired Count
 - Priv/Pub Subnets
 - VPC

@@ -1,17 +1,18 @@
-{
+package main
+
+var newservicetemplate = `{
     "AWSTemplateFormatVersion": "2010-09-09",
     "Resources": {
         "Cluster": {
-            "Properties": {
-                "ClusterName": ""
-            },
+            "ClusterName": "",
             "Type": "AWS::ECS::Cluster"
         },
         "Listener": {
             "Properties": {
                 "Certificates": [
                     {
-                        "CertificateArn": "" }
+                        "CertificateArn": ""
+                    }
                 ],
                 "DefaultActions": [
                     {
@@ -42,13 +43,7 @@
                     "",
                     ""
                 ],
-                "Tags": [
-                    {
-                        "Key": "",
-                        "Value": ""
-                    }
-                ]
-            },
+                "Tags": [ ] },
             "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
         },
         "LoadBalancerSecurityGroup": {
@@ -74,10 +69,6 @@
                     }
                 ],
                 "Tags": [
-                    {
-                        "Key": "",
-                        "Value": ""
-                    }
                 ],
                 "VpcId": ""
             },
@@ -106,10 +97,6 @@
                     }
                 ],
                 "Tags": [
-                    {
-                        "Key": "",
-                        "Value": ""
-                    }
                 ],
                 "VpcId": ""
             },
@@ -120,9 +107,7 @@
                 "Listener"
             ],
             "Properties": {
-                "Cluster": {
-                    "Ref": "Cluster"
-                },
+                "Cluster": "",
                 "DeploymentConfiguration": {
                     "MaximumPercent": 200,
                     "MinimumHealthyPercent": 50
@@ -168,7 +153,7 @@
                 "HealthCheckPort": 1234,
                 "HealthCheckProtocol": "HTTP",
                 "HealthCheckTimeoutSeconds": 3,
-                "HealthyThresholdCount": 1,
+                "HealthyThresholdCount": 2,
                 "Matcher": {
                     "HttpCode": "200-399"
                 },
@@ -176,10 +161,6 @@
                 "Port": 1234,
                 "Protocol": "HTTP",
                 "Tags": [
-                    {
-                        "Key": "",
-                        "Value": ""
-                    }
                 ],
                 "TargetType": "ip",
                 "UnhealthyThresholdCount": 5,
@@ -238,4 +219,5 @@
             "Type": "AWS::ECS::TaskDefinition"
         }
     }
-}
+
+}`
