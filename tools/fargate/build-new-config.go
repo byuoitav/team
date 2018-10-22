@@ -8,11 +8,11 @@ import (
 )
 
 //BuildNewService .
-func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branch string) (NewServiceCloudformationStack, error) {
+func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branch string) (NewServiceCloudformationStack, string, error) {
 	toReturn := NewServiceCloudformationStack{}
 
 	if _, ok := wrap.AWSStages[branch]; !ok {
-		return toReturn, fmt.Errorf("No branch information for %v defined", branch)
+		return toReturn, "", fmt.Errorf("No branch information for %v defined", branch)
 	}
 
 	err := json.Unmarshal([]byte(newservicetemplate), &toReturn)
@@ -29,15 +29,19 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 	if len(stageInfo.Task) > 1 {
 		taskwrap, err := GetTaskInfoFromDB(stageInfo.Task)
 		if err != nil {
-			return toReturn, fmt.Errorf("Couldn't get task definition %v from database. %v", wrap.AWSStages[branch].Task, err.Error())
+			return toReturn, "", fmt.Errorf("Couldn't get task definition %v from database. %v", wrap.AWSStages[branch].Task, err.Error())
 		}
 		ts, ok = taskwrap.AWSStages[branch]
 		if !ok {
-			return toReturn, fmt.Errorf("No branch information for %v defined in the task definition", branch)
+			return toReturn, "", fmt.Errorf("No branch information for %v defined in the task definition", branch)
 		}
 
-		//Cluster Info
-		toReturn.Resources.Cluster.Properties.ClusterName = ts.Name
+		if branch == "development" {
+			//Cluster Info
+			toReturn.Resources.Cluster.Properties.ClusterName = ts.Name
+		} else {
+			toReturn.Resources.Cluster = nil
+		}
 
 		//Listener Info
 		l := &toReturn.Resources.Listener.Properties
@@ -120,6 +124,7 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 		svc.NetworkConfiguration.AwsvpcConfiguration.Subnets = ts.PrivateSubnets
 		svc.Role = ts.ServiceRoleArn
 		svc.ServiceName = ts.Name + "--" + branch
+		svc.Cluster = ts.Name
 
 		//TargetGroup
 		tg := &toReturn.Resources.TargetGroup.Properties
@@ -138,15 +143,15 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 		lg.RetentionInDays = 3
 
 		//Task Definition
-		tmp, err := buildTaskDefinitionConfig(wrap, def, dbName, branch)
+		tmp, _, err := buildTaskDefinitionConfig(wrap, def, dbName, branch)
 		if err != nil {
 			log.L.Errorf("Couldn't build task definition")
-			return toReturn, fmt.Errorf("Couldn't build task definition: %v", err.Error())
+			return toReturn, "", fmt.Errorf("Couldn't build task definition: %v", err.Error())
 		}
 		toReturn.Resources.TaskDef = tmp.Resources.Task
 	}
 
-	return toReturn, nil
+	return toReturn, ts.Name + "--" + branch, nil
 }
 
 //GenEnvTag .

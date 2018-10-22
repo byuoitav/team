@@ -85,16 +85,19 @@ type SecurityGroup struct {
 	ToPort      int    `json:"ToPort"`
 }
 
+//Cluster  .
+type Cluster struct {
+	Properties struct {
+		ClusterName string `json:"ClusterName"`
+	} `json:"Properties"`
+	Type string `json:"Type"`
+}
+
 //NewServiceCloudformationStack .
 type NewServiceCloudformationStack struct {
 	AWSTemplateFormatVersion string `json:"AWSTemplateFormatVersion"`
 	Resources                struct {
-		Cluster struct {
-			Properties struct {
-				ClusterName string `json:"ClusterName"`
-			} `json:"Properties"`
-			Type string `json:"Type"`
-		} `json:"Cluster"`
+		Cluster  *Cluster `json:"Cluster,omitempty"`
 		Listener struct {
 			Properties struct {
 				Certificates []struct {
@@ -151,9 +154,7 @@ type NewServiceCloudformationStack struct {
 		Service struct {
 			DependsOn  []string `json:"DependsOn"`
 			Properties struct {
-				Cluster struct {
-					Ref string `json:"Ref"`
-				} `json:"Cluster"`
+				Cluster                 string `json:"Cluster"`
 				DeploymentConfiguration struct {
 					MaximumPercent        int `json:"MaximumPercent"`
 					MinimumHealthyPercent int `json:"MinimumHealthyPercent"`

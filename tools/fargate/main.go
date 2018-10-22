@@ -31,6 +31,7 @@ func main() {
 		return
 	}
 	var b []byte
+	var fileName string
 
 	//we need to go get the datbase information for this service
 	configwrap, err := GetInfoFromDB(*DBName, configdef.Name)
@@ -40,7 +41,7 @@ func main() {
 
 	if *newService {
 		//we need to create the cluster, etc. etc.a
-		config, err := BuildNewService(configwrap, configdef, *DBName, *branch)
+		config, name, err := BuildNewService(configwrap, configdef, *DBName, *branch)
 
 		if err != nil {
 			log.L.Fatalf(err.Error())
@@ -50,10 +51,10 @@ func main() {
 		if err != nil {
 			log.L.Fatalf(err.Error())
 		}
-
+		fileName = name
 	} else {
 
-		taskConfig, err := buildTaskDefinitionConfig(configwrap, configdef, *DBName, *branch)
+		taskConfig, name, err := buildTaskDefinitionConfig(configwrap, configdef, *DBName, *branch)
 		if err != nil {
 			log.L.Fatalf(err.Error())
 		}
@@ -62,6 +63,7 @@ func main() {
 		if err != nil {
 			log.L.Fatalf(err.Error())
 		}
+		fileName = name
 
 	}
 	if len(*Output) > 0 {
@@ -73,8 +75,11 @@ func main() {
 			return
 		}
 	} else {
-		//we actually try a deployment
-
+		err := StartDeployment(fileName, b)
+		if err != nil {
+			log.L.Errorf("Couldn't start cloudformation deployment: %v", err.Error())
+			return
+		}
 	}
 }
 

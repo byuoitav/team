@@ -107,9 +107,7 @@ var newservicetemplate = `{
                 "Listener"
             ],
             "Properties": {
-                "Cluster": {
-                    "Ref": "Cluster"
-                },
+                "Cluster": "",
                 "DeploymentConfiguration": {
                     "MaximumPercent": 200,
                     "MinimumHealthyPercent": 50

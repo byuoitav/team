@@ -30,10 +30,10 @@ const template = `
     }
 }`
 
-func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branch string) (FargateTaskDefinition, error) {
+func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branch string) (FargateTaskDefinition, string, error) {
 	var toReturn FargateTaskDefinition
 	if _, ok := wrap.AWSStages[branch]; !ok {
-		return toReturn, fmt.Errorf("No branch information for %v defined", branch)
+		return toReturn, "", fmt.Errorf("No branch information for %v defined", branch)
 	}
 
 	err := json.Unmarshal([]byte(template), &toReturn)
@@ -50,11 +50,11 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 	//check to see if it's part of a task
 	taskwrap, err := GetTaskInfoFromDB(stageInfo.Task)
 	if err != nil {
-		return toReturn, fmt.Errorf("Couldn't get task definition %v from database. %v", wrap.AWSStages[branch].Task, err.Error())
+		return toReturn, "", fmt.Errorf("Couldn't get task definition %v from database. %v", wrap.AWSStages[branch].Task, err.Error())
 	}
 	taskStage, ok = taskwrap.AWSStages[branch]
 	if !ok {
-		return toReturn, fmt.Errorf("No branch information for %v defined in the task definition", branch)
+		return toReturn, "", fmt.Errorf("No branch information for %v defined in the task definition", branch)
 	}
 
 	//we need to build it with this info
@@ -76,7 +76,7 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 	//do enforcement
 	for k, v := range stageInfo.EnvironmentValues {
 		if !contains(def.EnvironmentVariables, k) {
-			return toReturn, fmt.Errorf("Environment variable %v in database not in Config Definition", k)
+			return toReturn, "", fmt.Errorf("Environment variable %v in database not in Config Definition", k)
 		}
 		env = append(env, EnvironmentVar{Name: k, Value: v})
 	}
@@ -116,13 +116,13 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 
 		cDef, err = buildContainerDefinition(taskStage.Name, taskStage.Services[i], branch, dbName)
 		if err != nil {
-			return toReturn, fmt.Errorf("Couldn't create task: %v", err.Error())
+			return toReturn, "", fmt.Errorf("Couldn't create task: %v", err.Error())
 		}
 		defs = append(defs, cDef)
 	}
 
 	toReturn.Resources.Task.Properties.ContainerDefinitions = defs
-	return toReturn, nil
+	return toReturn, taskStage.Name + "--" + branch, nil
 }
 
 func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerDefinition, error) {
