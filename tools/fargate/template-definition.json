@@ -1,0 +1,20 @@
+
+{
+"AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "ECSCluster": {
+            "Type": "AWS::ECS::Cluster"
+        },
+        "Task": {
+            "Type": "AWS::ECS::TaskDefinition",
+            "Properties": {
+                "NetworkMode": "awsvpc",
+                "RequiresCompatibilities": [
+                    "FARGATE",
+                    "EC2"
+                ]
+            }
+        }
+    }
+
+}
