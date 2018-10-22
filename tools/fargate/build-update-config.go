@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/byuoitav/common/log"
 )
@@ -15,8 +16,7 @@ const template = `
             "Type": "AWS::ECS::Cluster"
         },
 		"Service": {
-            "Type": "AWS::ECS::Service"
-		},
+            "Type": "AWS::ECS::Service" },
         "Task": {
             "Type": "AWS::ECS::TaskDefinition",
             "Properties": {
@@ -89,10 +89,17 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 			Protocol:      "tcp",
 		}},
 		Environment: env,
+		HealthCheck: HealthCheck{
+			Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(def.Port, ":"))},
+			Interval:    5,
+			Timeout:     2,
+			StartPeriod: 60,
+			Retries:     10,
+		},
 		LogConfiguration: LogConfiguration{
 			LogDriver: "awslogs",
 			Options: map[string]string{
-				"awslogs-group":         fmt.Sprintf("/ecs/%v", taskStage.Name),
+				"awslogs-group":         fmt.Sprintf("/ecs/%v--%v", taskStage.Name, branch),
 				"awslogs-region":        "us-west-2",
 				"awslogs-stream-prefix": "ecs",
 			},
@@ -136,10 +143,17 @@ func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerD
 			ContainerPort: wrapStage.Port,
 			Protocol:      "tcp",
 		}},
+		HealthCheck: HealthCheck{
+			Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(wrapStage.Port, ":"))},
+			Interval:    5,
+			Timeout:     2,
+			StartPeriod: 60,
+			Retries:     10,
+		},
 		LogConfiguration: LogConfiguration{
 			LogDriver: "awslogs",
 			Options: map[string]string{
-				"awslogs-group":         fmt.Sprintf("/ecs/%v", taskname),
+				"awslogs-group":         fmt.Sprintf("/ecs/%v--%v", taskname, branch),
 				"awslogs-region":        "us-west-2",
 				"awslogs-stream-prefix": "ecs",
 			},

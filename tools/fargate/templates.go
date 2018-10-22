@@ -43,9 +43,7 @@ var newservicetemplate = `{
                     "",
                     ""
                 ],
-                "Tags": [
-                ]
-            },
+                "Tags": [ ] },
             "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
         },
         "LoadBalancerSecurityGroup": {
@@ -171,6 +169,13 @@ var newservicetemplate = `{
                 "VpcId": ""
             },
             "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+		"LogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+                "LogGroupName": "",
+                "RetentionInDays": 3
+			}
         },
         "TaskDef": {
             "Properties": {

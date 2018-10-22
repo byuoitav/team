@@ -11,8 +11,7 @@
             "Properties": {
                 "Certificates": [
                     {
-                        "CertificateArn": ""
-                    }
+                        "CertificateArn": "" }
                 ],
                 "DefaultActions": [
                     {
@@ -187,6 +186,13 @@
                 "VpcId": ""
             },
             "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+        },
+		"LogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+                "LogGroupName": "",
+                "RetentionInDays": 3
+			}
         },
         "TaskDef": {
             "Properties": {

@@ -37,9 +37,19 @@ type ContainerDefinition struct {
 	CPU              string           `json:"Cpu,omitempty"`
 	Memory           string           `json:"Memory,omitempty"`
 	Image            string           `json:"Image,omitempty"`
+	HealthCheck      HealthCheck      `json:"HealthCheck,omitempty"`
 	LogConfiguration LogConfiguration `json:"LogConfiguration"`
 	PortMappings     []PortMapping    `json:"PortMappings,omitempty"`
 	Environment      []EnvironmentVar `json:"Environment,omitempty"`
+}
+
+//HealthCheck .
+type HealthCheck struct {
+	Command     []string `json:"Command,omitempty"`
+	Interval    int      `json:"Interval,omitempty"`
+	Retries     int      `json:"Retries,omitempty"`
+	StartPeriod int      `json:"StartPeriod,omitempty"`
+	Timeout     int      `json:"Timeout,omitempty"`
 }
 
 //LogConfiguration .
@@ -175,6 +185,13 @@ type NewServiceCloudformationStack struct {
 			} `json:"Properties"`
 			Type string `json:"Type"`
 		} `json:"Service"`
+		LogGroup struct {
+			Type       string `json:"Type"`
+			Properties struct {
+				LogGroupName    string `json:"LogGroupName"`
+				RetentionInDays int    `json:"RetentionInDays"`
+			} `json:"Properties"`
+		} `json:"LogGroup"`
 		TargetGroup struct {
 			Properties struct {
 				HealthCheckIntervalSeconds int    `json:"HealthCheckIntervalSeconds"`

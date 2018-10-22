@@ -132,6 +132,11 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 		tg.Tags = append(tg.Tags, GenEnvTag(branch))
 		tg.VpcID = ts.VPCID
 
+		//LogGroup
+		lg := &toReturn.Resources.LogGroup.Properties
+		lg.LogGroupName = fmt.Sprintf("/ecs/%v--%v", ts.Name, branch)
+		lg.RetentionInDays = 3
+
 		//Task Definition
 		tmp, err := buildTaskDefinitionConfig(wrap, def, dbName, branch)
 		if err != nil {
