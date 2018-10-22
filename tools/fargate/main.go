@@ -15,7 +15,7 @@ import (
 func main() {
 	branch := flag.String("b", "development", "the branch to deploy to")
 	config := flag.String("c", "./config.json", "the location of the config file")
-	newService := flag.Bool("n", false, "Create a new cluster, service, load balancer, etc.")
+	newService := flag.Bool("n", true, "Create a new cluster, service, load balancer, etc.")
 
 	DBName := flag.String("dbname", "deployment-information", "The databse name for service configuration info")
 	Output := flag.String("o", "", "If defined will output the template generated to this file. Will not attempt to create/update the stack.")
