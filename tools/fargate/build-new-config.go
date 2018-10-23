@@ -56,11 +56,7 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 		//LoadBalancer info
 		lb := &toReturn.Resources.LoadBalancer.Properties
 		lb.Name = ts.Name + "--" + branch
-		if ts.Public {
-			lb.Scheme = "internet-facing"
-		} else {
-			lb.Scheme = "internal"
-		}
+		lb.Scheme = "internet-facing"
 		lb.Subnets = ts.PublicSubnets
 		for k, v := range ts.Tags {
 			lb.Tags = append(lb.Tags, Tag{Key: k, Value: v})
