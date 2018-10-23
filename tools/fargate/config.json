@@ -1,6 +1,9 @@
 {
-    "name": "central-event-hub",
-    "port": ":7100", 
+    "name": "fargate",
+    "port": "",
     "env-vars": [
+        "DB_USERNAME",
+        "DB_PASSWORD",
+        "DB_ADDRESS"
     ]
 }
