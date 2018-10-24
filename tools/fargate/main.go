@@ -33,6 +33,7 @@ func main() {
 	var b []byte
 	var fileName string
 
+	log.L.Infof("Getting info from DB")
 	//we need to go get the datbase information for this service
 	configwrap, err := GetInfoFromDB(*DBName, configdef.Name)
 	if err != nil {
