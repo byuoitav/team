@@ -91,7 +91,7 @@ func StartDeployment(name string, payload []byte) error {
 
 		serviceChanges := false
 		for _, v := range changeset.Changes {
-			if *v.ResourceChange.LogicalResourceId == "service" {
+			if *v.ResourceChange.LogicalResourceId == "Service" {
 				log.L.Infof("Changes resulted in a change to the service, will not force redeploy")
 				serviceChanges = true
 				break
