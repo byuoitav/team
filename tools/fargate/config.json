@@ -1,0 +1,9 @@
+{
+    "name": "fargate",
+    "port": "",
+    "env-vars": [
+        "DB_USERNAME",
+        "DB_PASSWORD",
+        "DB_ADDRESS"
+    ]
+}
