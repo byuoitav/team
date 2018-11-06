@@ -20,6 +20,8 @@ func main() {
 	DBName := flag.String("dbname", "deployment-information", "The databse name for service configuration info")
 	Output := flag.String("o", "", "If defined will output the template generated to this file. Will not attempt to create/update the stack.")
 
+	force := flag.Bool("f", false, "If set will not create a cloudformation template, but will force a redeploy.")
+
 	flag.Parse()
 
 	log.L.Infof("%v", *newService)
@@ -75,6 +77,9 @@ func main() {
 			log.L.Errorf("Couldn't write the file: %v", err.Error())
 			return
 		}
+	} else if force != nil && *force {
+		ForceECSRedeploy(fileName)
+		return
 	} else {
 		err := StartDeployment(fileName, b)
 		if err != nil {
