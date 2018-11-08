@@ -157,6 +157,7 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 					}
 					log.L.Infof("Using public port %v and container port %v", ts.PublicPort, tmp)
 					svc.LoadBalancers[0].ContainerPort = tmp
+					tg.HealthCheckPort = tmp
 				} else {
 					break
 				}
