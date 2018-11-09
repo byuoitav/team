@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/byuoitav/common/log"
 )
@@ -116,7 +117,7 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 		svc := &toReturn.Resources.Service.Properties
 		svc.DesiredCount = ts.InstanceCount
 		svc.LoadBalancers[0].ContainerName = ts.PublicService
-		svc.LoadBalancers[0].ContainerPort = ts.PublicPort
+		svc.LoadBalancers[0].ContainerPort = ts.PublicPort //find the port of the public service
 		svc.NetworkConfiguration.AwsvpcConfiguration.Subnets = ts.PrivateSubnets
 		svc.Role = ts.ServiceRoleArn
 		svc.ServiceName = ts.Name + "--" + branch
@@ -145,6 +146,24 @@ func BuildNewService(wrap ConfigInfoWrapper, def ConfigDefinition, dbName, branc
 			return toReturn, "", fmt.Errorf("Couldn't build task definition: %v", err.Error())
 		}
 		toReturn.Resources.TaskDef = tmp.Resources.Task
+		//look through to see if the public port is differnet from the port defined for the pulic service.
+		for _, i := range toReturn.Resources.TaskDef.Properties.ContainerDefinitions {
+			if i.Name == ts.PublicService {
+				if i.PortMappings[0].ContainerPort != string(ts.PublicPort) {
+					tmp, er := strconv.Atoi(i.PortMappings[0].ContainerPort)
+					if er != nil {
+						log.L.Warnf("Container port for public service doesn't match service public port, but can't parse container port: %v.", i.PortMappings[0].ContainerPort)
+						break
+					}
+					log.L.Infof("Using public port %v and container port %v", ts.PublicPort, tmp)
+					svc.LoadBalancers[0].ContainerPort = tmp
+					tg.HealthCheckPort = tmp
+				} else {
+					break
+				}
+			}
+		}
+
 	}
 
 	return toReturn, ts.Name + "--" + branch, nil

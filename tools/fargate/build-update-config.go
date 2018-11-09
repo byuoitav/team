@@ -80,6 +80,7 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 		}
 		env = append(env, EnvironmentVar{Name: k, Value: v})
 	}
+
 	//build our container definition
 	cDef := ContainerDefinition{
 		Name:  def.Name,
