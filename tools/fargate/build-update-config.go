@@ -92,8 +92,8 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 		Environment: env,
 		HealthCheck: HealthCheck{
 			Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(def.Port, ":"))},
-			Interval:    5,
-			Timeout:     2,
+			Interval:    30,
+			Timeout:     10,
 			StartPeriod: 60,
 			Retries:     10,
 		},
