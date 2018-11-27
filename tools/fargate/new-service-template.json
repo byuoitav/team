@@ -163,7 +163,7 @@
         },
         "TargetGroup": {
             "Properties": {
-                "HealthCheckIntervalSeconds": 10,
+                "HealthCheckIntervalSeconds": 30,
                 "HealthCheckPath": "/status",
                 "HealthCheckPort": 1234,
                 "HealthCheckProtocol": "HTTP",
