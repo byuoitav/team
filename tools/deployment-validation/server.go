@@ -32,7 +32,7 @@ func main() {
 	}
 
 	versions := map[string]string{
-		"device-monitoring": "0.0.132",
+		"device-monitoring": "0.0.133",
 		"central-event-hub": "0.0.2",
 		"ui":                "1.0.13",
 		"av-api":            "0.1.93",
@@ -99,7 +99,7 @@ func main() {
 			}
 
 			client := &http.Client{
-				Timeout: 10 * time.Second,
+				Timeout: 25 * time.Second,
 			}
 
 			resp, err := client.Get(url)
