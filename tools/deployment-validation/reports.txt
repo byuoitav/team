@@ -1,0 +1,28 @@
+BAD REPORTS:
+
+JRCB-343-CP1$ incorrect version for av-api: expected 0.1.93, got ¯\_(ツ)_/¯
+TNRB-240-CP1$ incorrect version for device-monitoring: expected 0.0.146, got 0.0.145
+TNRB-240-CP2$ unable to make GET request against http://TNRB-240-CP2.byu.edu:10000/device/status: Get http://TNRB-240-CP2.byu.edu:10000/device/status: dial tcp 10.66.51.222:10000: connect: connection refused
+EB-404-CP5$ unable to make GET request against http://EB-404-CP5.byu.edu:10000/device/status: Get http://EB-404-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-425-CP1$ unable to make GET request against http://EB-425-CP1.byu.edu:10000/device/status: Get http://EB-425-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HBLL-4740A-CP1$ unable to make GET request against http://HBLL-4740A-CP1.byu.edu:10000/device/status: Get http://HBLL-4740A-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP2$ unable to make GET request against http://CTB-380-CP2.byu.edu:10000/device/status: Get http://CTB-380-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP3$ unable to make GET request against http://CTB-380-CP3.byu.edu:10000/device/status: Get http://CTB-380-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP5$ unable to make GET request against http://CTB-380-CP5.byu.edu:10000/device/status: Get http://CTB-380-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JKB-1011-CP1$ unable to make GET request against http://JKB-1011-CP1.byu.edu:10000/device/status: Get http://JKB-1011-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP1$ unable to make GET request against http://JRCB-267-CP1.byu.edu:10000/device/status: Get http://JRCB-267-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP4$ unable to make GET request against http://JRCB-267-CP4.byu.edu:10000/device/status: Get http://JRCB-267-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP5$ unable to make GET request against http://JRCB-267-CP5.byu.edu:10000/device/status: Get http://JRCB-267-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP6$ unable to make GET request against http://JRCB-267-CP6.byu.edu:10000/device/status: Get http://JRCB-267-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-168-CP1$ unable to make GET request against http://MCKB-168-CP1.byu.edu:10000/device/status: Get http://MCKB-168-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+SFH-278-CP2$ unable to make GET request against http://SFH-278-CP2.byu.edu:10000/device/status: Get http://SFH-278-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP6$ unable to make GET request against http://TNRB-240-CP6.byu.edu:10000/device/status: Get http://TNRB-240-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP3$ unable to make GET request against http://TNRB-240-CP3.byu.edu:10000/device/status: Get http://TNRB-240-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP4$ unable to make GET request against http://TNRB-240-CP4.byu.edu:10000/device/status: Get http://TNRB-240-CP4.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP5$ unable to make GET request against http://TNRB-240-CP5.byu.edu:10000/device/status: Get http://TNRB-240-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP7$ unable to make GET request against http://TNRB-240-CP7.byu.edu:10000/device/status: Get http://TNRB-240-CP7.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP8$ unable to make GET request against http://TNRB-240-CP8.byu.edu:10000/device/status: Get http://TNRB-240-CP8.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP9$ unable to make GET request against http://TNRB-240-CP9.byu.edu:10000/device/status: Get http://TNRB-240-CP9.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP11$ unable to make GET request against http://TNRB-240-CP11.byu.edu:10000/device/status: Get http://TNRB-240-CP11.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+
+HBLL-1216-CP1$ failed to get room state: Get http://HBLL-1216-CP1.byu.edu:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
