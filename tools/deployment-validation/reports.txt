@@ -1,28 +1,342 @@
 BAD REPORTS:
 
-JRCB-343-CP1$ incorrect version for av-api: expected 0.1.93, got ¯\_(ツ)_/¯
-TNRB-240-CP1$ incorrect version for device-monitoring: expected 0.0.146, got 0.0.145
-TNRB-240-CP2$ unable to make GET request against http://TNRB-240-CP2.byu.edu:10000/device/status: Get http://TNRB-240-CP2.byu.edu:10000/device/status: dial tcp 10.66.51.222:10000: connect: connection refused
+CTB-410-CP5$ unable to make GET request against http://10.66.5.229:10000/device/status: Get http://10.66.5.229:10000/device/status: dial tcp 10.66.5.229:10000: connect: connection refused
+CONF-1-CP1$ unable to make GET request against http://CONF-1-CP1.byu.edu:10000/device/status: Get http://CONF-1-CP1.byu.edu:10000/device/status: dial tcp: lookup CONF-1-CP1.byu.edu on 10.8.0.19:53: no such host
+HCEB-356B-CP1$ unable to make GET request against http://HCEB-356B-CP1.byu.edu:10000/device/status: Get http://HCEB-356B-CP1.byu.edu:10000/device/status: dial tcp: lookup HCEB-356B-CP1.byu.edu on 10.8.0.19:53: no such host
+HCEB-456C-CP1$ unable to make GET request against http://HCEB-456C-CP1.byu.edu:10000/device/status: Get http://HCEB-456C-CP1.byu.edu:10000/device/status: dial tcp: lookup HCEB-456C-CP1.byu.edu on 10.8.0.19:53: no such host
+HCEB-356D-CP1$ unable to make GET request against http://HCEB-356D-CP1.byu.edu:10000/device/status: Get http://HCEB-356D-CP1.byu.edu:10000/device/status: dial tcp: lookup HCEB-356D-CP1.byu.edu on 10.8.0.19:53: no such host
+HCEB-356C-CP1$ unable to make GET request against http://HCEB-356C-CP1.byu.edu:10000/device/status: Get http://HCEB-356C-CP1.byu.edu:10000/device/status: dial tcp: lookup HCEB-356C-CP1.byu.edu on 10.8.0.19:53: no such host
+HCEB-256C-CP1$ unable to make GET request against http://HCEB-256C-CP1.byu.edu:10000/device/status: Get http://HCEB-256C-CP1.byu.edu:10000/device/status: dial tcp: lookup HCEB-256C-CP1.byu.edu on 10.8.0.19:53: no such host
+UPC-267-CP1$ unable to make GET request against http://UPC-267-CP1.byu.edu:10000/device/status: Get http://UPC-267-CP1.byu.edu:10000/device/status: dial tcp: lookup UPC-267-CP1.byu.edu on 10.8.0.19:53: no such host
+TLRA-104-CP1$ unable to make GET request against http://TLRA-104-CP1.byu.edu:10000/device/status: Get http://TLRA-104-CP1.byu.edu:10000/device/status: dial tcp: lookup TLRA-104-CP1.byu.edu on 10.8.0.19:53: no such host
+TLRA-106-CP1$ unable to make GET request against http://TLRA-106-CP1.byu.edu:10000/device/status: Get http://TLRA-106-CP1.byu.edu:10000/device/status: dial tcp: lookup TLRA-106-CP1.byu.edu on 10.8.0.19:53: no such host
+TLRA-111-CP1$ unable to make GET request against http://TLRA-111-CP1.byu.edu:10000/device/status: Get http://TLRA-111-CP1.byu.edu:10000/device/status: dial tcp: lookup TLRA-111-CP1.byu.edu on 10.8.0.19:53: no such host
+JRCB-348-CP1$ unable to make GET request against http://JRCB-348-CP1.byu.edu:10000/device/status: Get http://JRCB-348-CP1.byu.edu:10000/device/status: dial tcp: lookup JRCB-348-CP1.byu.edu on 10.8.0.19:53: no such host
+CTB-410-CP1$ incorrect version for device-monitoring: expected 0.0.146, got 
+CTB-410-CP8$ incorrect version for device-monitoring: expected 0.0.146, got 
+CTB-410-CP2$ incorrect version for device-monitoring: expected 0.0.146, got 
+BRWB-111-CP1$ unable to make GET request against http://BRWB-111-CP1.byu.edu:10000/device/status: Get http://BRWB-111-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+ASB-D252-CP1$ unable to make GET request against http://ASB-D252-CP1.byu.edu:10000/device/status: Get http://ASB-D252-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+ASB-A343-CP1$ unable to make GET request against http://ASB-A343-CP1.byu.edu:10000/device/status: Get http://ASB-A343-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+EB-221-CP1$ unable to make GET request against http://EB-221-CP1.byu.edu:10000/device/status: Get http://EB-221-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-404-CP2$ unable to make GET request against http://EB-404-CP2.byu.edu:10000/device/status: Get http://EB-404-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-404-CP3$ unable to make GET request against http://EB-404-CP3.byu.edu:10000/device/status: Get http://EB-404-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-321-CP1$ unable to make GET request against http://EB-321-CP1.byu.edu:10000/device/status: Get http://EB-321-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-404-CP4$ unable to make GET request against http://EB-404-CP4.byu.edu:10000/device/status: Get http://EB-404-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-325-CP1$ unable to make GET request against http://EB-325-CP1.byu.edu:10000/device/status: Get http://EB-325-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 EB-404-CP5$ unable to make GET request against http://EB-404-CP5.byu.edu:10000/device/status: Get http://EB-404-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-404-CP6$ unable to make GET request against http://EB-404-CP6.byu.edu:10000/device/status: Get http://EB-404-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 EB-425-CP1$ unable to make GET request against http://EB-425-CP1.byu.edu:10000/device/status: Get http://EB-425-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-HBLL-4740A-CP1$ unable to make GET request against http://HBLL-4740A-CP1.byu.edu:10000/device/status: Get http://HBLL-4740A-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+EB-425-CP2$ unable to make GET request against http://EB-425-CP2.byu.edu:10000/device/status: Get http://EB-425-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-404-CP1$ unable to make GET request against http://EB-404-CP1.byu.edu:10000/device/status: Get http://EB-404-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP1$ unable to make GET request against http://CTB-380-CP1.byu.edu:10000/device/status: Get http://CTB-380-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-204-CP2$ unable to make GET request against http://EB-204-CP2.byu.edu:10000/device/status: Get http://EB-204-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+EB-204-CP1$ unable to make GET request against http://EB-204-CP1.byu.edu:10000/device/status: Get http://EB-204-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 CTB-380-CP2$ unable to make GET request against http://CTB-380-CP2.byu.edu:10000/device/status: Get http://CTB-380-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 CTB-380-CP3$ unable to make GET request against http://CTB-380-CP3.byu.edu:10000/device/status: Get http://CTB-380-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-CTB-380-CP5$ unable to make GET request against http://CTB-380-CP5.byu.edu:10000/device/status: Get http://CTB-380-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-JKB-1011-CP1$ unable to make GET request against http://JKB-1011-CP1.byu.edu:10000/device/status: Get http://JKB-1011-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
-JRCB-267-CP1$ unable to make GET request against http://JRCB-267-CP1.byu.edu:10000/device/status: Get http://JRCB-267-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-JRCB-267-CP4$ unable to make GET request against http://JRCB-267-CP4.byu.edu:10000/device/status: Get http://JRCB-267-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-JRCB-267-CP5$ unable to make GET request against http://JRCB-267-CP5.byu.edu:10000/device/status: Get http://JRCB-267-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-JRCB-267-CP6$ unable to make GET request against http://JRCB-267-CP6.byu.edu:10000/device/status: Get http://JRCB-267-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-MCKB-168-CP1$ unable to make GET request against http://MCKB-168-CP1.byu.edu:10000/device/status: Get http://MCKB-168-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+CTB-410-CP3$ unable to make GET request against http://10.66.5.225:10000/device/status: Get http://10.66.5.225:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-410-CP7$ unable to make GET request against http://10.66.5.233:10000/device/status: Get http://10.66.5.233:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-410-CP6$ unable to make GET request against http://10.66.5.231:10000/device/status: Get http://10.66.5.231:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+SFH-278-CP3$ unable to make GET request against http://SFH-278-CP3.byu.edu:10000/device/status: Get http://SFH-278-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+SFH-278-CP1$ unable to make GET request against http://SFH-278-CP1.byu.edu:10000/device/status: Get http://SFH-278-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 SFH-278-CP2$ unable to make GET request against http://SFH-278-CP2.byu.edu:10000/device/status: Get http://SFH-278-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP6$ unable to make GET request against http://TNRB-240-CP6.byu.edu:10000/device/status: Get http://TNRB-240-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP3$ unable to make GET request against http://TNRB-240-CP3.byu.edu:10000/device/status: Get http://TNRB-240-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP4$ unable to make GET request against http://TNRB-240-CP4.byu.edu:10000/device/status: Get http://TNRB-240-CP4.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP5$ unable to make GET request against http://TNRB-240-CP5.byu.edu:10000/device/status: Get http://TNRB-240-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP7$ unable to make GET request against http://TNRB-240-CP7.byu.edu:10000/device/status: Get http://TNRB-240-CP7.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP8$ unable to make GET request against http://TNRB-240-CP8.byu.edu:10000/device/status: Get http://TNRB-240-CP8.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-TNRB-240-CP9$ unable to make GET request against http://TNRB-240-CP9.byu.edu:10000/device/status: Get http://TNRB-240-CP9.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HBLL-2231-CP2$ unable to make GET request against http://HBLL-2231-CP2.byu.edu:10000/device/status: Get http://HBLL-2231-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HCEB-BALLRM-CP2$ unable to make GET request against http://HCEB-BALLRM-CP2.byu.edu:10000/device/status: Get http://HCEB-BALLRM-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HCEB-BALLRM-CP3$ unable to make GET request against http://HCEB-BALLRM-CP3.byu.edu:10000/device/status: Get http://HCEB-BALLRM-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HCEB-BALLRM-CP5$ unable to make GET request against http://HCEB-BALLRM-CP5.byu.edu:10000/device/status: Get http://HCEB-BALLRM-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP4$ unable to make GET request against http://CTB-380-CP4.byu.edu:10000/device/status: Get http://CTB-380-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JFSB-1081-CP3$ unable to make GET request against http://JFSB-1081-CP3.byu.edu:10000/device/status: Get http://JFSB-1081-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JFSB-1081-CP2$ unable to make GET request against http://JFSB-1081-CP2.byu.edu:10000/device/status: Get http://JFSB-1081-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JFSB-1081-CP4$ unable to make GET request against http://JFSB-1081-CP4.byu.edu:10000/device/status: Get http://JFSB-1081-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-380-CP5$ unable to make GET request against http://CTB-380-CP5.byu.edu:10000/device/status: Get http://CTB-380-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JFSB-1081-CP5$ unable to make GET request against http://JFSB-1081-CP5.byu.edu:10000/device/status: Get http://JFSB-1081-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP10$ unable to make GET request against http://TNRB-240-CP10.byu.edu:10000/device/status: Get http://TNRB-240-CP10.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP1$ unable to make GET request against http://TNRB-240-CP1.byu.edu:10000/device/status: Get http://TNRB-240-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 TNRB-240-CP11$ unable to make GET request against http://TNRB-240-CP11.byu.edu:10000/device/status: Get http://TNRB-240-CP11.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HBLL-4740A-CP1$ unable to make GET request against http://HBLL-4740A-CP1.byu.edu:10000/device/status: Get http://HBLL-4740A-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP4$ unable to make GET request against http://TNRB-240-CP4.byu.edu:10000/device/status: Get http://TNRB-240-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP5$ unable to make GET request against http://TNRB-240-CP5.byu.edu:10000/device/status: Get http://TNRB-240-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP2$ unable to make GET request against http://TNRB-240-CP2.byu.edu:10000/device/status: Get http://TNRB-240-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JKB-1118-CP1$ unable to make GET request against http://JKB-1118-CP1.byu.edu:10000/device/status: Get http://JKB-1118-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+JKB-1011-CP1$ unable to make GET request against http://JKB-1011-CP1.byu.edu:10000/device/status: Get http://JKB-1011-CP1.byu.edu:10000/device/status: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP2$ unable to make GET request against http://JRCB-267-CP2.byu.edu:10000/device/status: Get http://JRCB-267-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP1$ unable to make GET request against http://JRCB-267-CP1.byu.edu:10000/device/status: Get http://JRCB-267-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP7$ unable to make GET request against http://TNRB-240-CP7.byu.edu:10000/device/status: Get http://TNRB-240-CP7.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP9$ unable to make GET request against http://TNRB-240-CP9.byu.edu:10000/device/status: Get http://TNRB-240-CP9.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP8$ unable to make GET request against http://TNRB-240-CP8.byu.edu:10000/device/status: Get http://TNRB-240-CP8.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+TNRB-240-CP6$ unable to make GET request against http://TNRB-240-CP6.byu.edu:10000/device/status: Get http://TNRB-240-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP6$ unable to make GET request against http://JRCB-267-CP6.byu.edu:10000/device/status: Get http://JRCB-267-CP6.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP8$ unable to make GET request against http://JRCB-267-CP8.byu.edu:10000/device/status: Get http://JRCB-267-CP8.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP5$ unable to make GET request against http://JRCB-267-CP5.byu.edu:10000/device/status: Get http://JRCB-267-CP5.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+JRCB-267-CP9$ unable to make GET request against http://JRCB-267-CP9.byu.edu:10000/device/status: Get http://JRCB-267-CP9.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+KMBL-109-CP1$ unable to make GET request against http://KMBL-109-CP1.byu.edu:10000/device/status: Get http://KMBL-109-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+KMBL-680-CP3$ unable to make GET request against http://KMBL-680-CP3.byu.edu:10000/device/status: Get http://KMBL-680-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-150-CP1$ unable to make GET request against http://MCKB-150-CP1.byu.edu:10000/device/status: Get http://MCKB-150-CP1.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-150-CP2$ unable to make GET request against http://MCKB-150-CP2.byu.edu:10000/device/status: Get http://MCKB-150-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-166-CP2$ unable to make GET request against http://MCKB-166-CP2.byu.edu:10000/device/status: Get http://MCKB-166-CP2.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-166-CP3$ unable to make GET request against http://MCKB-166-CP3.byu.edu:10000/device/status: Get http://MCKB-166-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-166-CP4$ unable to make GET request against http://MCKB-166-CP4.byu.edu:10000/device/status: Get http://MCKB-166-CP4.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+MCKB-150-CP3$ unable to make GET request against http://MCKB-150-CP3.byu.edu:10000/device/status: Get http://MCKB-150-CP3.byu.edu:10000/device/status: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 
+
+
+GOOD REPORTS:
+
+KMBL-1151-CP1$ successfully sent hardware info up
+TMCB-294-CP1$ successfully sent hardware info up
+HCEB-309B-CP1$ successfully sent hardware info up
+UPC-205-CP1$ successfully sent hardware info up
+EB-429-CP1$ successfully sent hardware info up
+HBLL-2218F-CP1$ successfully sent hardware info up
+UPC-273-CP1$ successfully sent hardware info up
+UPC-348-CP1$ successfully sent hardware info up
+CB-460-CP1$ successfully sent hardware info up
+HRCB-125-CP1$ successfully sent hardware info up
+JFSB-2114-CP1$ successfully sent hardware info up
+MCKB-230-CP1$ successfully sent hardware info up
+HCEB-325-CP1$ successfully sent hardware info up
+RB-124-CP1$ successfully sent hardware info up
+TMCB-104-CP1$ successfully sent hardware info up
+KMBL-105-CP1$ successfully sent hardware info up
+TMCB-244-CP1$ successfully sent hardware info up
+HRCB-154-CP1$ successfully sent hardware info up
+MCKB-355-CP1$ successfully sent hardware info up
+ESC-C396-CP1$ successfully sent hardware info up
+UPC-211-CP1$ successfully sent hardware info up
+UPC-250-CP1$ successfully sent hardware info up
+TMCB-121-CP1$ successfully sent hardware info up
+BRWB-115-CP1$ successfully sent hardware info up
+JRCB-343-CP1$ successfully sent hardware info up
+SNLB-230R-CP1$ successfully sent hardware info up
+MCKB-341-CP1$ successfully sent hardware info up
+MCKB-359-CP1$ successfully sent hardware info up
+UPC-203-CP1$ successfully sent hardware info up
+JFSB-B161-CP1$ successfully sent hardware info up
+UPC-275-CP1$ successfully sent hardware info up
+TMCB-235-CP1$ successfully sent hardware info up
+UPC-271-CP1$ successfully sent hardware info up
+UPC-244-CP1$ successfully sent hardware info up
+SFH-206E-CP1$ successfully sent hardware info up
+ESC-C435-CP1$ successfully sent hardware info up
+TMCB-116-CP1$ successfully sent hardware info up
+CB-385-CP1$ successfully sent hardware info up
+SNLB-165-CP2$ successfully sent hardware info up
+SNLB-165-CP1$ successfully sent hardware info up
+BRWB-113-CP1$ successfully sent hardware info up
+TMCB-U138-CP1$ successfully sent hardware info up
+HFAC-F270-CP1$ successfully sent hardware info up
+HFAC-B561-CP1$ successfully sent hardware info up
+TMCB-323-CP1$ successfully sent hardware info up
+TNRB-W459-CP1$ successfully sent hardware info up
+JRCB-370-CP1$ successfully sent hardware info up
+HCEB-118-CP1$ successfully sent hardware info up
+HCEB-102D-CP1$ successfully sent hardware info up
+HCEB-428-CP1$ successfully sent hardware info up
+MCKB-267-CP1$ successfully sent hardware info up
+ERL-210-CP1$ successfully sent hardware info up
+JFSB-1041S-CP1$ successfully sent hardware info up
+SFH-106E-CP1$ successfully sent hardware info up
+JRCB-372-CP1$ successfully sent hardware info up
+HCEB-321C-CP1$ successfully sent hardware info up
+HCEB-309A-CP1$ successfully sent hardware info up
+EB-430R-CP1$ successfully sent hardware info up
+HBLL-1214-CP1$ successfully sent hardware info up
+HBLL-4363-CP1$ successfully sent hardware info up
+HBLL-4826-CP1$ successfully sent hardware info up
+JRCB-274D-CP1$ successfully sent hardware info up
+HBLL-2070-CP1$ successfully sent hardware info up
+JRCB-274H-CP1$ successfully sent hardware info up
+WSC-1080-CP1$ successfully sent hardware info up
+HCEB-303A-CP1$ successfully sent hardware info up
+MSRB-150-CP1$ successfully sent hardware info up
+HBLL-5725-CP1$ successfully sent hardware info up
+HBLL-1213-CP1$ successfully sent hardware info up
+HCEB-102B-CP1$ successfully sent hardware info up
+HCEB-217-CP1$ successfully sent hardware info up
+SFH-280-CP1$ successfully sent hardware info up
+HBLL-5724-CP1$ successfully sent hardware info up
+HBLL-2104-CP1$ successfully sent hardware info up
+HCEB-321A-CP1$ successfully sent hardware info up
+EB-B106-CP1$ successfully sent hardware info up
+EB-406B-CP1$ successfully sent hardware info up
+MCKB-331-CP1$ successfully sent hardware info up
+TMCB-205-CP1$ successfully sent hardware info up
+TLRB-172-CP1$ successfully sent hardware info up
+HCEB-357-CP1$ successfully sent hardware info up
+TLRB-176-CP1$ successfully sent hardware info up
+HCEB-415-CP1$ successfully sent hardware info up
+MCKB-270-CP1$ successfully sent hardware info up
+HBLL-1215-CP1$ successfully sent hardware info up
+HCEB-205-CP1$ successfully sent hardware info up
+HBLL-4360-CP1$ successfully sent hardware info up
+JRCB-274B-CP1$ successfully sent hardware info up
+HCEB-202-CP1$ successfully sent hardware info up
+ESC-N209-CP1$ successfully sent hardware info up
+EB-250-CP1$ successfully sent hardware info up
+HCEB-311-CP1$ successfully sent hardware info up
+EB-406A-CP1$ successfully sent hardware info up
+TLRB-227-CP1$ successfully sent hardware info up
+HCEB-359-CP1$ successfully sent hardware info up
+HCEB-358-CP1$ successfully sent hardware info up
+HCEB-321B-CP1$ successfully sent hardware info up
+EB-107-CP1$ successfully sent hardware info up
+EB-230-CP1$ successfully sent hardware info up
+EB-100-CP1$ successfully sent hardware info up
+UPC-177-CP1$ successfully sent hardware info up
+JRCB-452-CP1$ successfully sent hardware info up
+HCEB-321E-CP1$ successfully sent hardware info up
+HCEB-243-CP1$ successfully sent hardware info up
+HCEB-102H-CP1$ successfully sent hardware info up
+JRCB-274A-CP1$ successfully sent hardware info up
+HBLL-4740B-CP1$ successfully sent hardware info up
+CTB-380B-CP1$ successfully sent hardware info up
+EB-228-CP1$ successfully sent hardware info up
+HCEB-303E-CP1$ successfully sent hardware info up
+HCEB-458-CP1$ successfully sent hardware info up
+EB-302-CP1$ successfully sent hardware info up
+EB-312A-CP1$ successfully sent hardware info up
+HCEB-303F-CP1$ successfully sent hardware info up
+EB-246A-CP1$ successfully sent hardware info up
+HCEB-329-CP1$ successfully sent hardware info up
+HCEB-107-CP2$ successfully sent hardware info up
+HCEB-B111-CP1$ successfully sent hardware info up
+TNRB-W461-CP1$ successfully sent hardware info up
+HBLL-5444-CP1$ successfully sent hardware info up
+EB-129-CP1$ successfully sent hardware info up
+HCEB-417-CP1$ successfully sent hardware info up
+HCEB-457-CP1$ successfully sent hardware info up
+HCEB-255-CP1$ successfully sent hardware info up
+EB-407-CP1$ successfully sent hardware info up
+HCEB-429-CP1$ successfully sent hardware info up
+TNRB-290-CP1$ successfully sent hardware info up
+TLRB-124-CP1$ successfully sent hardware info up
+EB-128-CP1$ successfully sent hardware info up
+TNRB-264-CP1$ successfully sent hardware info up
+EB-240J-CP1$ successfully sent hardware info up
+KMBL-1153-CP1$ successfully sent hardware info up
+HCEB-442-CP1$ successfully sent hardware info up
+HCEB-256-CP1$ successfully sent hardware info up
+BRWB-102-CP1$ successfully sent hardware info up
+EB-312-CP1$ successfully sent hardware info up
+EB-307-CP1$ successfully sent hardware info up
+EB-402-CP1$ successfully sent hardware info up
+EB-207B-CP1$ successfully sent hardware info up
+EB-408-CP1$ successfully sent hardware info up
+TLRA-102-CP1$ successfully sent hardware info up
+TNRB-675-CP1$ successfully sent hardware info up
+HBLL-5723-CP1$ successfully sent hardware info up
+EB-446-CP1$ successfully sent hardware info up
+HCEB-327-CP1$ successfully sent hardware info up
+EB-309-CP1$ successfully sent hardware info up
+HBLL-2614-CP1$ successfully sent hardware info up
+KMBL-893-CP1$ successfully sent hardware info up
+HCEB-241-CP1$ successfully sent hardware info up
+EB-140-CP1$ successfully sent hardware info up
+HCEB-107-CP1$ successfully sent hardware info up
+EB-434A-CP1$ successfully sent hardware info up
+EB-146A-CP1$ successfully sent hardware info up
+EB-230A-CP1$ successfully sent hardware info up
+TNRB-674-CP1$ successfully sent hardware info up
+EB-B136-CP1$ successfully sent hardware info up
+TNRB-625-CP1$ successfully sent hardware info up
+EB-304B-CP1$ successfully sent hardware info up
+JRCB-274F-CP1$ successfully sent hardware info up
+HBLL-5453-CP1$ successfully sent hardware info up
+EB-304C-CP1$ successfully sent hardware info up
+HBLL-2611-CP1$ successfully sent hardware info up
+EB-305-CP1$ successfully sent hardware info up
+HBLL-4361-CP1$ successfully sent hardware info up
+EB-224-CP1$ successfully sent hardware info up
+EB-304A-CP1$ successfully sent hardware info up
+KMBL-366-CP1$ successfully sent hardware info up
+HBLL-2824-CP1$ successfully sent hardware info up
+RB-214-CP1$ successfully sent hardware info up
+TLRA-112-CP1$ successfully sent hardware info up
+LSB-2019-CP1$ successfully sent hardware info up
+TLRA-107-CP1$ successfully sent hardware info up
+EB-207A-CP1$ successfully sent hardware info up
+HCEB-409-CP1$ successfully sent hardware info up
+EB-330R-CP1$ successfully sent hardware info up
+EB-334A-CP1$ successfully sent hardware info up
+EB-360A-CP1$ successfully sent hardware info up
+HBLL-2103-CP1$ successfully sent hardware info up
+HBLL-4362-CP1$ successfully sent hardware info up
+EB-409-CP1$ successfully sent hardware info up
+HCEB-321D-CP1$ successfully sent hardware info up
+TLRA-103-CP1$ successfully sent hardware info up
+EB-127-CP1$ successfully sent hardware info up
+MSRB-123-CP1$ successfully sent hardware info up
+EB-460A-CP1$ successfully sent hardware info up
+TLRA-110-CP1$ successfully sent hardware info up
+JRCB-371-CP1$ successfully sent hardware info up
+TLRA-101-CP1$ successfully sent hardware info up
+MCKB-26-CP1$ successfully sent hardware info up
+HCEB-413B-CP1$ successfully sent hardware info up
+EB-222-CP1$ successfully sent hardware info up
+MCKB-168-CP1$ successfully sent hardware info up
+HCEB-419G-CP1$ successfully sent hardware info up
+HCEB-102C-CP1$ successfully sent hardware info up
+CTB-380A-CP1$ successfully sent hardware info up
+HCEB-123A-CP1$ successfully sent hardware info up
+CTB-380A-CP2$ successfully sent hardware info up
+WSC-3264-CP1$ successfully sent hardware info up
+HCEB-204C-CP1$ successfully sent hardware info up
+UPC-201-CP1$ successfully sent hardware info up
+EB-405-CP1$ successfully sent hardware info up
+EB-342-CP1$ successfully sent hardware info up
+WSC-3250-CP1$ successfully sent hardware info up
+MSRB-202-CP3$ successfully sent hardware info up
+MSRB-202-CP2$ successfully sent hardware info up
+JFSB-B181-CP1$ successfully sent hardware info up
+MSRB-202-CP4$ successfully sent hardware info up
+MSRB-202-CP5$ successfully sent hardware info up
+TNRB-W241-CP1$ successfully sent hardware info up
+CONF-1172-CP1$ successfully sent hardware info up
+CONF-2269-CP1$ successfully sent hardware info up
+CONF-2279-CP1$ successfully sent hardware info up
+CONF-1184-CP1$ successfully sent hardware info up
+CONF-2287-CP1$ successfully sent hardware info up
+CONF-2277-CP1$ successfully sent hardware info up
+CONF-2285-CP1$ successfully sent hardware info up
+CONF-1188-CP1$ successfully sent hardware info up
+CONF-1189-CP1$ successfully sent hardware info up
+CONF-1187-CP1$ successfully sent hardware info up
+BNSN-W002-CP1$ successfully sent hardware info up
+TNRB-W139-CP1$ successfully sent hardware info up
+MSRB-202-CP1$ successfully sent hardware info up
+CONF-1164-CP1$ successfully sent hardware info up
+BNSN-W003-CP1$ successfully sent hardware info up
+TNRB-W237-CP1$ successfully sent hardware info up
+EB-423-CP1$ successfully sent hardware info up
+JFSB-B013-CP1$ successfully sent hardware info up
+HBLL-2212-CP2$ successfully sent hardware info up
+HBLL-2212-CP1$ successfully sent hardware info up
+HFAC-D400-CP2$ successfully sent hardware info up
+WSC-3260-CP1$ successfully sent hardware info up
+EB-223-CP1$ successfully sent hardware info up
+HFAC-D400-CP1$ successfully sent hardware info up
+WSC-3252-CP1$ successfully sent hardware info up
+EB-438-CP1$ successfully sent hardware info up
+HGB-115-CP1$ successfully sent hardware info up
+KMBL-680-CP1$ successfully sent hardware info up
+KMBL-680-CP5$ successfully sent hardware info up
+JFSB-1081-CP1$ successfully sent hardware info up
+HBLL-2231-CP3$ successfully sent hardware info up
+HBLL-2231-CP5$ successfully sent hardware info up
+JRCB-267-CP4$ successfully sent hardware info up
+KMBL-680-CP2$ successfully sent hardware info up
+KMBL-680-CP4$ successfully sent hardware info up
+HBLL-2231-CP1$ successfully sent hardware info up
+HBLL-2231-CP4$ successfully sent hardware info up
+JRCB-267-CP3$ successfully sent hardware info up
+TNRB-240-CP3$ successfully sent hardware info up
+JRCB-267-CP7$ successfully sent hardware info up
+MCKB-166-CP1$ successfully sent hardware info up
+HCEB-249-CP1$ successfully sent hardware info up
+EB-346-CP1$ successfully sent hardware info up
+CTB-255-CP1$ successfully sent hardware info up
+HCEB-BALLRM-CP1$ failed to get room state: Get http://HCEB-BALLRM-CP1.byu.edu:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HCEB-BALLRM-CP6$ failed to get room state: Get http://HCEB-BALLRM-CP6.byu.edu:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+HCEB-BALLRM-CP4$ failed to get room state: Get http://HCEB-BALLRM-CP4.byu.edu:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+CTB-410-CP4$ failed to get room state: Get http://10.66.5.227:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
 HBLL-1216-CP1$ failed to get room state: Get http://HBLL-1216-CP1.byu.edu:10000/room/state: net/http: request canceled (Client.Timeout exceeded while awaiting headers)

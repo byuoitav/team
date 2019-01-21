@@ -32,7 +32,7 @@ func main() {
 	}
 
 	versions := map[string]string{
-		"device-monitoring": "0.0.146",
+		"device-monitoring": "0.0.148",
 		"central-event-hub": "0.0.2",
 		"ui":                "1.0.17",
 		"av-api":            "0.1.93",
