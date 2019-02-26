@@ -160,6 +160,12 @@ var newservicetemplate = `{
                 "Name": "",
                 "Port": 1234,
                 "Protocol": "HTTP",
+				"TargetGroupAttributes": [
+				  {
+					"Key": "deregistration_delay.timeout_seconds",
+					"Value": "20"
+				  }
+				],
                 "Tags": [
                 ],
                 "TargetType": "ip",
