@@ -201,6 +201,7 @@ type NewServiceCloudformationStack struct {
 				HealthCheckProtocol        string `json:"HealthCheckProtocol"`
 				HealthCheckTimeoutSeconds  int    `json:"HealthCheckTimeoutSeconds"`
 				HealthyThresholdCount      int    `json:"HealthyThresholdCount"`
+				TargetGroupAttributes      []Tag  `json:"TargetGroupAttributes"`
 				Matcher                    struct {
 					HTTPCode string `json:"HttpCode"`
 				} `json:"Matcher"`
