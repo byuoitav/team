@@ -137,9 +137,15 @@ func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerD
 		return toReturn, fmt.Errorf("No definition for branch %v on service %v", branch, name)
 	}
 
+	dockerTag := branch
+
+	if branch == "production" {
+		dockerTag = "latest"
+	}
+
 	toReturn = ContainerDefinition{
 		Name:  name,
-		Image: fmt.Sprintf("byuoitav/%v:%v", name, branch),
+		Image: fmt.Sprintf("byuoitav/%v:%v", name, dockerTag),
 		PortMappings: []PortMapping{PortMapping{
 			ContainerPort: wrapStage.Port,
 			Protocol:      "tcp",
