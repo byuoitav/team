@@ -81,10 +81,17 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 		env = append(env, EnvironmentVar{Name: k, Value: v})
 	}
 
+	dockerTag := branch
+
+	if branch == "production" {
+		log.L.Infof("production branch of %v, moving to latest", def.Name)
+		dockerTag = "latest"
+	}
+
 	//build our container definition
 	cDef := ContainerDefinition{
 		Name:  def.Name,
-		Image: fmt.Sprintf("byuoitav/%v:%v", def.Name, branch),
+		Image: fmt.Sprintf("byuoitav/%v:%v", def.Name, dockerTag),
 		PortMappings: []PortMapping{PortMapping{
 			ContainerPort: stageInfo.Port,
 			Protocol:      "tcp",
@@ -140,6 +147,7 @@ func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerD
 	dockerTag := branch
 
 	if branch == "production" {
+		log.L.Infof("production branch, moving to latest")
 		dockerTag = "latest"
 	}
 
