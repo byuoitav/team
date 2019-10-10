@@ -75,10 +75,9 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 
 	//do enforcement
 	for k, v := range stageInfo.EnvironmentValues {
-		if !contains(def.EnvironmentVariables, k) {
-			return toReturn, "", fmt.Errorf("Environment variable %v in database not in Config Definition", k)
+		if contains(def.EnvironmentVariables, k) {
+			env = append(env, EnvironmentVar{Name: k, Value: v})
 		}
-		env = append(env, EnvironmentVar{Name: k, Value: v})
 	}
 
 	dockerTag := branch
