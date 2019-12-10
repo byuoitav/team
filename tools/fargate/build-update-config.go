@@ -112,6 +112,12 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 			},
 		},
 	}
+
+	// use the provided image name instead, if one was given
+	if len(stageInfo.Image) > 0 {
+		cDef.Image = stageInfo.Image
+	}
+
 	defs = append(defs, cDef)
 
 	//if it's part of a task we need to add all the other containers running with this one

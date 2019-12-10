@@ -17,7 +17,8 @@ type ConfigInfoWrapper struct {
 
 //AWSConfigInfo .
 type AWSConfigInfo struct {
-	Task string `json:"task,omitempty"` //taskName -if any
+	Task  string `json:"task,omitempty"`  //taskName -if any
+	Image string `json:"image,omitempty"` // docker image name
 	ConfigInfo
 }
 
