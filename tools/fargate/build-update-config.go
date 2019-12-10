@@ -96,13 +96,13 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 			Protocol:      "tcp",
 		}},
 		Environment: env,
-		HealthCheck: HealthCheck{
-			Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(def.Port, ":"))},
-			Interval:    30,
-			Timeout:     10,
-			StartPeriod: 60,
-			Retries:     10,
-		},
+		//HealthCheck: HealthCheck{
+		//	Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(def.Port, ":"))},
+		//	Interval:    30,
+		//	Timeout:     10,
+		//	StartPeriod: 60,
+		//	Retries:     10,
+		//},
 		LogConfiguration: LogConfiguration{
 			LogDriver: "awslogs",
 			Options: map[string]string{
@@ -111,6 +111,17 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 				"awslogs-stream-prefix": "ecs",
 			},
 		},
+	}
+
+	// add the health check if one has been provided
+	if len(stageInfo.HealthCheckCmd) > 0 {
+		cDef.HealthCheck = &HealthCheck{
+			Command:     stageInfo.HealthCheckCmd,
+			Interval:    30,
+			Timeout:     10,
+			StartPeriod: 60,
+			Retries:     10,
+		}
 	}
 
 	// use the provided image name instead, if one was given
@@ -170,7 +181,7 @@ func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerD
 			ContainerPort: wrapStage.Port,
 			Protocol:      "tcp",
 		}},
-		HealthCheck: HealthCheck{
+		HealthCheck: &HealthCheck{
 			Command:     []string{"CMD-SHELL", fmt.Sprintf("/usr/bin/wget -q -O- http://localhost:%v/status", strings.Trim(wrapStage.Port, ":"))},
 			Interval:    5,
 			Timeout:     2,
@@ -189,6 +200,9 @@ func buildContainerDefinition(taskname, name, branch, dbName string) (ContainerD
 	for k, v := range wrapStage.EnvironmentValues {
 		toReturn.Environment = append(toReturn.Environment, EnvironmentVar{Name: k, Value: v})
 	}
+
+	// TODO i should make the same changes (health check, image, auth)
+	// to these containers down here as i did in the above function
 
 	return toReturn, nil
 }

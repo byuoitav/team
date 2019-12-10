@@ -17,9 +17,10 @@ type ConfigInfoWrapper struct {
 
 //AWSConfigInfo .
 type AWSConfigInfo struct {
-	Task        string `json:"task,omitempty"`        //taskName -if any
-	Image       string `json:"image,omitempty"`       // docker image name
-	Credentials string `json:"credentials,omitempty"` // arn to secret in secrets manager
+	Task           string   `json:"task,omitempty"`           //taskName -if any
+	Image          string   `json:"image,omitempty"`          // docker image name
+	Credentials    string   `json:"credentials,omitempty"`    // arn to secret in secrets manager
+	HealthCheckCmd []string `json:"healthCheckCmd,omitempty"` // leave blank to disable health checks
 	ConfigInfo
 }
 
