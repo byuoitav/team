@@ -118,6 +118,13 @@ func buildTaskDefinitionConfig(wrap ConfigInfoWrapper, def ConfigDefinition, dbN
 		cDef.Image = stageInfo.Image
 	}
 
+	// add auth if it was configured
+	if len(stageInfo.Credentials) > 0 {
+		cDef.RepositoryCredentials = &Credentials{
+			CredentialsParameters: stageInfo.Credentials,
+		}
+	}
+
 	defs = append(defs, cDef)
 
 	//if it's part of a task we need to add all the other containers running with this one

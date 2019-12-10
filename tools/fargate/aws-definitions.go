@@ -41,6 +41,12 @@ type ContainerDefinition struct {
 	LogConfiguration LogConfiguration `json:"LogConfiguration"`
 	PortMappings     []PortMapping    `json:"PortMappings,omitempty"`
 	Environment      []EnvironmentVar `json:"Environment,omitempty"`
+
+	RepositoryCredentials *Credentials `json:"RepositoryCredentials,omitempty"`
+}
+
+type Credentials struct {
+	CredentialsParameters string `json:"CredentialsParameter,omitempty"`
 }
 
 //HealthCheck .

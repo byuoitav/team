@@ -17,8 +17,9 @@ type ConfigInfoWrapper struct {
 
 //AWSConfigInfo .
 type AWSConfigInfo struct {
-	Task  string `json:"task,omitempty"`  //taskName -if any
-	Image string `json:"image,omitempty"` // docker image name
+	Task        string `json:"task,omitempty"`        //taskName -if any
+	Image       string `json:"image,omitempty"`       // docker image name
+	Credentials string `json:"credentials,omitempty"` // arn to secret in secrets manager
 	ConfigInfo
 }
 
