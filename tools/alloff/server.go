@@ -24,7 +24,11 @@ func main() {
 	//regex to extract the room id from the hostname
 	re := regexp.MustCompile("([A-Z,0-9]+-[A-Z,0-9]+)-[A-Z,0-9]+")
 
-	host := os.Getenv("PI_HOSTNAME")
+	host, err := os.Hostname()
+	if err != nil {
+		log.L.Errorf("failed to get hostname: %s", err)
+		return
+	}
 
 	rm := re.FindStringSubmatch(host)[1]
 
