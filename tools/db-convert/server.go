@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/byuoitav/common/db/couch"
 )
@@ -11,10 +12,10 @@ import (
 type device struct {
 	ID      string                 `json:"_id"`
 	TypeID  string                 `json:"typeID"`
-	Address string                 `json:"address"`
-	Proxy   map[string]string      `json:"proxy"`
-	Ports   []port                 `json:"ports"`
-	Tags    map[string]interface{} `json:"tags"`
+	Address string                 `json:"address,omitempty"`
+	Proxy   map[string]string      `json:"proxy,omitempty"`
+	Ports   []port                 `json:"ports,omitempty"`
+	Tags    map[string]interface{} `json:"tags,omitempty"`
 }
 
 type TypeID struct {
@@ -45,12 +46,18 @@ type CouchUpsertResponse struct {
 	Rev string `json:"rev"`
 }
 
+type Room struct {
+	ID          string                 `json:"_id"`
+	Designation string                 `json:"designation"`
+	Tags        map[string]interface{} `json:"tags,omitempty"`
+}
+
 func main() {
-	db := couch.NewDB(os.Getenv("DB_ADDRESS"), os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"))
-	err := updateDevice(db)
-	if err != nil {
-		fmt.Println("poop: ", err)
-	}
+	// db := couch.NewDB(os.Getenv("DB_ADDRESS"), os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"))
+	// err := updateDevice(db)
+	// if err != nil {
+	// 	fmt.Println("poop: ", err)
+	// }
 	// err := updateRooms(db)
 	// if err != nil {
 	// 	fmt.Printf("unable to update rooms: %s\n", err)
@@ -67,98 +74,223 @@ func main() {
 	// }
 }
 
-// func updateRooms(db *CouchDB) error {
-// 	rooms, err := db.GetAllRooms()
-// 	if err != nil {
-// 		return fmt.Errorf("error getting all rooms: %s", err)
-// 	}
+func updateRooms(db *CouchDB) error {
+	rooms, err := db.GetAlls()
+	if err != nil {
+		return fmt.Errorf("error getting all rooms: %s", err)
+	}
 
-// 	for i := range rooms {
-// 		room := rooms[i]
-// 		newRoom := structs.Room{
-// 			ID:          room.ID,
-// 			Designation: room.Designation,
-// 			Tags:        room.Tags,
-// 		}
+	for i := range rooms {
+		room := rooms[i]
+		newRoom := Room{
+			ID:          room.ID,
+			Designation: room.Designation,
+		}
 
-// 		_, err := db.UpdateRoom(room.ID, newRoom)
-// 		if err != nil {
-// 			fmt.Printf("there was an error updating %s: %s\n", rooms.ID, err)
-// 		}
-// 	}
+		if room.Description != "" {
+			newRoom.Tags = map[string]interface{}{
+				"notes": room.Description,
+			}
+		}
 
-// 	return nil
-// }
+		if err := db.DeleteRoom(room.ID); err != nil {
+			fmt.Printf("error deleting room %s: %s\n", room.ID, err)
+			continue
+		}
 
-// func updateDeviceTypes(db *CouchDB) error {
-// 	dTypes, err := db.GetAllDeviceTypes()
-// 	if err != nil {
-// 		return fmt.Errorf("error getting all device types: %s", err)
-// 	}
+		b, err := json.Marshal(newRoom)
+		if err != nil {
+			fmt.Printf("error marshalling room %s into json: %s\n", newRoom.ID, err)
+			continue
+		}
 
-// 	for i := range dTypes {
-// 		dType := dTypes[i]
-// 		cmds := make(map[string]structs.Command)
-// 		for y := range dType.Commands {
-// 			cmd := dType.Commands[y]
-// 			if cmds[cmd.ID] != nil {
-// 				continue
-// 			}
+		var resp CouchUpsertResponse
+		err = db.MakeRequest("POST", "rooms", "application/json", b, &resp)
+		if err != nil {
+			fmt.Printf("error recreating room %s: %s\n", newRoom.ID, err)
+		}
+	}
 
-// 			cmds[cmd.ID] = structs.Command{
-// 				Address: cmd.Microservice.Address + cmd.Endpoint.Path,
-// 				Order:   cmd.Priority,
-// 			}
-// 		}
-// 		newDType := structs.DeviceType{
-// 			ID:       dType.ID,
-// 			Commands: cmds,
-// 		}
+	return nil
+}
 
-// 		err := db.DeleteDeviceType(dType.ID)
-// 		if err != nil {
-// 			fmt.Printf("unable to delete device type %s: %s\n", dType.ID, err)
-// 			continue
-// 		}
-// 		// this is sketchy cause it could delete fine and not recreate...
-// 		_, err = db.CreateDeviceType(newDType)
-// 		if err != nil {
-// 			fmt.Printf("unable to recreate device type %s: %s\n", newDType.ID, err)
-// 		}
-// 	}
+func updateDeviceTypes(db *CouchDB) error {
+	dTypes, err := db.GetAllDeviceTypes()
+	if err != nil {
+		return fmt.Errorf("error getting all device types: %s", err)
+	}
 
-// 	return nil
-// }
+	for i := range dTypes {
+		dType := dTypes[i]
+		cmds := make(map[string]command)
+		for y := range dType.Commands {
+			cmd := dType.Commands[y]
+			if cmds[cmd.ID] != nil {
+				continue
+			}
 
-// func updateDevices(db *CouchDB) error {
-// 	devices, err := db.GetAllDevices()
-// 	if err != nil {
-// 		return fmt.Errorf("error getting all devices: %s", err)
-// 	}
+			//parse the path and replace :variable with {{variable}}
+			addr := cmd.Microservice.Address
+			splitPath := strings.Split(cmd.Endpoint.Path, "/")
+			for x := range splitPath {
+				if splitPath[x][0] == ':' {
+					splitPath[x] = strings.TrimPrefix(splitPath[x], ":")
+					splitPath[x] = "{{" + splitPath[x] + "}}"
+				}
+				addr = addr + "/" + splitPath[x]
+			}
 
-// for i := range devices {
-// 	device := devices[i]
-// 	newDevice := structs.Device{
-// 		ID:      device.ID,
-// 		Address: device.Address,
-// 		TypeID:  device.Type.ID,
-// 		Proxy:   device.Proxy,
-// 		Ports:   device.Ports,
-// 		Tags:    device.Tags,
-// 	}
+			cmds[cmd.ID] = command{
+				URLs: map[string]string{
+					"fallback": addr,
+				},
+				Order: cmd.Priority,
+			}
+		}
+		newDType := deviceType{
+			ID:       dType.ID,
+			Commands: cmds,
+		}
 
-// 	_, err := db.UpdateDevice(device.ID, newDevice)
-// 	if err != nil {
-// 		fmt.Printf("unable to update device %s: %s\n", device.ID, err)
-// 	}
-// }
+		// this is sketchy cause it could delete fine and not recreate...
 
-// 	return nil
-// }
+		err := db.DeleteDeviceType(dType.ID)
+		if err != nil {
+			fmt.Printf("unable to delete device type %s: %s\n", dType.ID, err)
+			continue
+		}
 
+		b, err := json.Marshal(newDType)
+		if err != nil {
+			fmt.Printf("error marshalling device type %s into json: %s\n", newDType.ID, err)
+			continue
+		}
+
+		var resp CouchUpsertResponse
+		err = db.MakeRequest("POST", "device-types", "application/json", b, &resp)
+		if err != nil {
+			fmt.Printf("error recreating device type %s: %s\n", newDType.ID, err)
+		}
+	}
+
+	return nil
+}
+
+func updateDevices(db *CouchDB) error {
+	devices, err := db.GetAllDevices()
+	if err != nil {
+		return fmt.Errorf("error getting all devices: %s", err)
+	}
+
+	for i := range devices {
+		dev := devices[i]
+		newDevice := device{
+			ID:     dev.ID,
+			TypeID: dev.Type.ID,
+			Proxy:  dev.Proxy,
+			Tags:   dev.Tags,
+		}
+		var ports []port
+		for y := range dev.Ports {
+			p := dev.Ports[y]
+			newPort := port{
+				Name: p.ID,
+				Type: "video",
+			}
+
+			if strings.Contains(newPort.Name, "IN") {
+				newPort.Name = strings.TrimPrefix(newPort.Name, "IN")
+				newPort.Outgoing = false
+				newPort.Incoming = true
+			}
+			if strings.Contains(newPort.Name, "OUT") {
+				newPort.Name = strings.TrimPrefix(newPort.Name, "OUT")
+				newPort.Incoming = false
+				newPort.Outgoing = true
+			}
+
+			if newDevice.Address != "0.0.0.0" {
+				newDevice.Address = dev.Address
+			}
+
+			audio := false
+			video := false
+
+			for x := range p.Tags {
+				if p.Tags[x] == "audio" {
+					audio = true
+				}
+				if p.Tags[x] == "video" {
+					video = true
+				}
+			}
+			if audio && !video {
+				newPort.Type = "audio"
+			}
+			tid := newDevice.TypeID
+
+			if tid == "SonyXBR" || tid == "Sony PHZ10" || tid == "Sony Projector No Audio" || tid == "Sony XBR No Audio" ||
+				tid == "Sony XBR Nop Audio (Mirror)" {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+			}
+			if newDevice.TypeID == "QSC-Core-110F" {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+				newPort.Type = "audio"
+			}
+
+			if newDevice.ID == p.DestinationDevice {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+				newPort.Endpoint = p.SourceDevice
+			} else if newDevice.ID == p.SourceDevice {
+				newPort.Outgoing = true
+				newPort.Incoming = false
+				newPort.Endpoint = p.DestinationDevice
+			}
+
+			ports = append(ports, newPort)
+		}
+		newDevice.Ports = ports
+
+		if dev.Description != "" {
+			if newDevice.Tags == nil {
+				newDevice.Tags = map[string]interface{}{
+					"notes": dev.Description,
+				}
+			} else {
+				newDevice.Tags["description"] = dev.Description
+			}
+		}
+
+		if err = db.DeleteDevice(dev.ID); err != nil {
+			fmt.Printf("error deleting device %s: %s", dev.ID, err)
+			continue
+		}
+
+		// re-add the device
+		b, err := json.Marshal(newDevice)
+		if err != nil {
+			fmt.Printf("There was an error marshaling the device: %s\n", err)
+			continue
+		}
+
+		var resp CouchUpsertResponse
+		err = db.MakeRequest("POST", fmt.Sprintf("%v", "devices"), "application/json", b, &resp)
+		if err != nil {
+			fmt.Printf("error making request: %s\n", err)
+			continue
+		}
+	}
+
+	return nil
+}
+
+//this actually does a room lol
 func updateDevice(db *couch.CouchDB) error {
 
-	room, err := db.GetDevicesByRoom("ITB-1109B")
+	room, err := db.GetDevicesByRoom("ITB-1108B")
 	if err != nil {
 		return fmt.Errorf("error getting room: %s", err)
 	}
@@ -167,18 +299,69 @@ func updateDevice(db *couch.CouchDB) error {
 	for i := range room {
 		dev := room[i]
 		newDevice := device{
-			ID:      dev.ID,
-			Address: dev.Address,
-			TypeID:  dev.Type.ID,
-			Proxy:   dev.Proxy,
+			ID:     dev.ID,
+			TypeID: dev.Type.ID,
+			Proxy:  dev.Proxy,
 		}
 		var ports []port
 		for y := range dev.Ports {
 			p := dev.Ports[y]
 			newPort := port{
-				Name:     p.ID,
-				Endpoint: p.DestinationDevice,
-				Type:     p.PortType,
+				Name: p.ID,
+				Type: "video",
+			}
+
+			if strings.Contains(newPort.Name, "IN") {
+				newPort.Name = strings.TrimPrefix(newPort.Name, "IN")
+				newPort.Outgoing = false
+				newPort.Incoming = true
+			}
+			if strings.Contains(newPort.Name, "OUT") {
+				newPort.Name = strings.TrimPrefix(newPort.Name, "OUT")
+				newPort.Incoming = false
+				newPort.Outgoing = true
+			}
+
+			if newDevice.Address != "0.0.0.0" {
+				newDevice.Address = dev.Address
+			}
+
+			// default type is video, if audio then audio, if it has both audio and video, then video
+			audio := false
+			video := false
+
+			for x := range p.Tags {
+				if p.Tags[x] == "audio" {
+					audio = true
+				}
+				if p.Tags[x] == "video" {
+					video = true
+				}
+			}
+			if audio && !video {
+				newPort.Type = "audio"
+			}
+			tid := newDevice.TypeID
+
+			if tid == "SonyXBR" || tid == "Sony PHZ10" || tid == "Sony Projector No Audio" || tid == "Sony XBR No Audio" ||
+				tid == "Sony XBR Nop Audio (Mirror)" {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+			}
+			if newDevice.TypeID == "QSC-Core-110F" {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+				newPort.Type = "audio"
+			}
+
+			if newDevice.ID == p.DestinationDevice {
+				newPort.Outgoing = false
+				newPort.Incoming = true
+				newPort.Endpoint = p.SourceDevice
+			} else if newDevice.ID == p.SourceDevice {
+				newPort.Outgoing = true
+				newPort.Incoming = false
+				newPort.Endpoint = p.DestinationDevice
 			}
 
 			ports = append(ports, newPort)
