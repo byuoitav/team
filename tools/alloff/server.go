@@ -18,6 +18,7 @@ import (
 
 var version = "0.7"
 var hub_url = ""
+var layout = "2006-01-02T15:04:05"
 
 // building Publisher in order to send messages to
 func Publish(url string, event events.Event) error {
@@ -40,7 +41,7 @@ func Publish(url string, event events.Event) error {
 
 	defer resp.Body.Close()
 
-	fmt.Printf("Testing: Response code: %v Body: %v\n", resp.StatusCode, resp.Body)
+	fmt.Printf("Response code: %v Body: %v\n", resp.StatusCode, resp.Body)
 
 	if resp.StatusCode/100 != 2 {
 		return fmt.Errorf("got a %v response from event url", resp.StatusCode)
@@ -49,15 +50,45 @@ func Publish(url string, event events.Event) error {
 	return nil
 }
 
+// Log file path building.
+func log_file_path() string {
+	// Generate filename
+	t := time.Now()
+	file := t.Format(layout) + "_nightly_restart.log"
+	// Generate full path
+	dir := "/var/log/restart/"
+	path := dir + file
+
+	// Check if Path exists
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err := os.Mkdir(dir, 0644)
+		if err != nil {
+			fmt.Printf("Error Creating File: %w\n", err.Error())
+		}
+	}
+
+	return path
+}
 func main() {
-	fmt.Printf("Version: %v\n", version)
+
+	file_path := log_file_path()
+
+	f, err := os.OpenFile(file_path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf(err.Error())
+	}
+
+	defer f.Close()
+	t := time.Now()
+	fmt.Fprintf(f, "Start Time: %v\n", t.Format(layout))
+	fmt.Fprintf(f, "Version: %v\n", version)
 
 	//regex to extract the room id from the hostname
 	re := regexp.MustCompile("([A-Z,0-9]+-[A-Z,0-9]+)-[A-Z,0-9]+")
 
 	host, err := os.Hostname()
 	if err != nil {
-		fmt.Printf("failed to get hostname: %s\n", err)
+		fmt.Fprintf(f, "failed to get hostname: %s\n", err)
 		return
 	}
 	rm := re.FindStringSubmatch(host)[1]
@@ -73,54 +104,58 @@ func main() {
 	db := db.GetDBWithCustomAuth(os.Getenv("COUCH_ADDR"), os.Getenv("COUCH_USER"), os.Getenv("COUCH_PASS"))
 	devs, err := db.GetDevicesByRoomAndRole(rm, "VideoOut")
 	if err != nil {
-		fmt.Printf("Error getting Video out devices from database: %v.\n", err.Error())
+		fmt.Fprintf(f, "Error getting Video out devices from database: %v.\n", err.Error())
 		return
 	}
 
 	// Get the list of Cameras
 	cams, err := db.GetDevicesByRoomAndType(rm, "AVER 520 Pro Camera")
 	if err != nil {
-		fmt.Printf("Error Getting Cameras from Database: %v.\n", err.Error())
+		fmt.Fprintf(f, "Error Getting Cameras from Database: %v.\n", err.Error())
 		return
 	}
 
 	room := structs.PublicRoom{}
 
 	for i := range devs {
-		room.Displays = append(room.Displays, structs.Display{
-			PublicDevice: structs.PublicDevice{
-				Name:  devs[i].Name,
-				Power: "standby",
-			},
-		})
+		if !strings.Contains(devs[i].ID, "-CAM") {
+			room.Displays = append(room.Displays, structs.Display{
+				PublicDevice: structs.PublicDevice{
+					Name:  devs[i].Name,
+					Power: "standby",
+				},
+			})
+		} else {
+			fmt.Fprintf(f, "%v doesn't support standby, skipping\n", devs[i].Name)
+		}
 	}
 
 	b, err := json.Marshal(&room)
 	if err != nil {
-		fmt.Printf("Couldn't marshal the room: %v\n", err.Error())
+		fmt.Fprintf(f, "Couldn't marshal the room: %v\n", err.Error())
 	}
 
 	//make our request
 	client := http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 	}
 	req, err := http.NewRequest("PUT", fmt.Sprintf("http://localhost:8000/buildings/%v/rooms/%v", split[0], split[1]), bytes.NewReader(b))
 	if err != nil {
-		fmt.Printf("Couldn't create request: %v\n", err.Error())
+		fmt.Fprintf(f, "Couldn't create request: %v\n", err.Error())
 	}
 
 	req.Header.Add("content-type", "application/json")
 
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("Couldn't make request\n", err.Error())
+		fmt.Fprintf(f, "Couldn't make request\n", err.Error())
 	}
 
 	defer resp.Body.Close()
 
 	out, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Printf("Couldn't read body: %v\n", err.Error())
+		fmt.Fprintf(f, "Couldn't read body: %v\n", err.Error())
 	}
 
 	rest_resp := fmt.Sprintf("Finished setting room to standby. Response Code: %v. Response Body: %s\n", resp.StatusCode, out)
@@ -144,10 +179,10 @@ func main() {
 
 	err = Publish(hub_url, event)
 	if err != nil {
-		fmt.Errorf("Sending event to event hub failed: %w", err.Error())
+		fmt.Fprintf(f, "Sending event to event hub failed: %w", err.Error())
 	}
 
-	fmt.Printf(rest_resp)
+	fmt.Fprintf(f, rest_resp)
 
 	// Reboot the Cameras in the room
 	if strings.Contains(host, "-CP1") && len(cams) > 0 {
@@ -155,24 +190,24 @@ func main() {
 			camname := cam.Address
 			req, err := http.NewRequest("GET", fmt.Sprintf("https://aver.av.byu.edu/v1/Pro520/%v:52381/reboot", camname), nil)
 			if err != nil {
-				fmt.Printf("Couldn't restart cameras\n")
+				fmt.Fprintf(f, "Couldn't restart cameras\n")
 			}
 			req.Header.Add("content-type", "application/json")
 
 			camresp, err := client.Do(req)
 			if err != nil {
-				fmt.Printf("Couldn't make request: %v\n", err.Error())
+				fmt.Fprintf(f, "Couldn't make request: %v\n", err.Error())
 			}
 
 			defer camresp.Body.Close()
 
 			if camresp.StatusCode/100 != 2 {
-				fmt.Printf("Non-200 response received: %v\n", camresp.StatusCode)
+				fmt.Fprintf("Non-200 response received: %v\n", camresp.StatusCode)
 				camout, err := ioutil.ReadAll(camresp.Body)
 				if err != nil {
-					fmt.Printf("Cannot read the response body", err.Error())
+					fmt.Fprintf("Cannot read the response body", err.Error())
 				}
-				fmt.Printf("Response Body: %s\n", camout)
+				fmt.Fprintf(f, "Response Body: %s\n", camout)
 
 			}
 			cam_resp_txt := fmt.Sprintf("Finished rebooting %v. Response Code: %v\n", camname, camresp.StatusCode)
@@ -195,36 +230,36 @@ func main() {
 
 			err = Publish(hub_url, event)
 			if err != nil {
-				fmt.Printf("Could not publish event to the event hub: %w\n", err.Error())
+				fmt.Fprintf(f, "Could not publish event to the event hub: %w\n", err.Error())
 			}
-			fmt.Printf(cam_resp_txt)
+			fmt.Fprintf(f, cam_resp_txt)
 		}
 	} else {
-		fmt.Println("No cameras in this room to reboot.")
+		fmt.Fprintln(f, "No cameras in this room to reboot.")
 	}
 
 	// Refresh UI
-	fmt.Println("Refreshing Pi UI")
+	fmt.Fprintln(f, "Refreshing Pi UI")
 
 	client = http.Client{
 		Timeout: 5 * time.Second,
 	}
 	req, err = http.NewRequest("PUT", fmt.Sprintf("http://localhost:8888/refresh"), nil)
 	if err != nil {
-		fmt.Printf("Couldn't create request: %v\n", err.Error())
+		fmt.Fprintf(f, "Couldn't create request: %v\n", err.Error())
 	}
 
 	req.Header.Add("content-type", "application/json")
 
 	resp1, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("Couldn't make request\n", err.Error())
+		fmt.Fprintf(f, "Couldn't make request\n", err.Error())
 	}
 	if resp1.StatusCode/100 != 2 {
-		fmt.Printf("Non-200 received\n", err.Error())
+		fmt.Fprintf(f, "Non-200 received\n", err.Error())
 	}
 
 	defer resp1.Body.Close()
-	fmt.Printf("done refreshing..\n")
+	fmt.Fprintf(f, "done refreshing..\n")
 
 }
