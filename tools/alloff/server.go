@@ -187,6 +187,8 @@ func main() {
 	// Reboot the Cameras in the room
 	if strings.Contains(host, "-CP1") && len(cams) > 0 {
 		for _, cam := range cams {
+			var camfail string
+			var Cam_txt string
 			camname := cam.Address
 			req, err := http.NewRequest("GET", fmt.Sprintf("https://aver.av.byu.edu/v1/Pro520/%v:52381/reboot", camname), nil)
 			if err != nil {
@@ -196,21 +198,28 @@ func main() {
 
 			camresp, err := client.Do(req)
 			if err != nil {
-				fmt.Fprintf(f, "Couldn't make request: %v\n", err.Error())
+				camfail := fmt.Sprintf("Couldn't make request: %v\n", err.Error())
+				fmt.Fprintf(f, camfail)
 			}
 
 			defer camresp.Body.Close()
 
 			if camresp.StatusCode/100 != 2 {
-				fmt.Fprintf("Non-200 response received: %v\n", camresp.StatusCode)
+				fmt.Fprintf(f, "Non-200 response received: %v\n", camresp.StatusCode)
 				camout, err := ioutil.ReadAll(camresp.Body)
 				if err != nil {
-					fmt.Fprintf("Cannot read the response body", err.Error())
+					fmt.Fprintf(f, "Cannot read the response body", err.Error())
 				}
 				fmt.Fprintf(f, "Response Body: %s\n", camout)
 
 			}
-			cam_resp_txt := fmt.Sprintf("Finished rebooting %v. Response Code: %v\n", camname, camresp.StatusCode)
+
+			if camresp != nil {
+				Cam_txt = fmt.Sprintf("Finished rebooting %v. Response Code: %v\n", camname, camresp.StatusCode)
+			} else if camfail != "" {
+				Cam_txt = fmt.Sprintf("Camera Reboot Failed for %v. Error: %v\n", camname, camfail)
+			}
+
 			event := events.Event{
 				GeneratingSystem: host,
 				Timestamp:        time.Now(),
@@ -221,7 +230,7 @@ func main() {
 					"auto-generated",
 					"restart",
 				},
-				Data: cam_resp_txt,
+				Data: Cam_txt,
 			}
 
 			event.TargetDevice.BuildingID = bld
@@ -232,7 +241,7 @@ func main() {
 			if err != nil {
 				fmt.Fprintf(f, "Could not publish event to the event hub: %w\n", err.Error())
 			}
-			fmt.Fprintf(f, cam_resp_txt)
+			fmt.Fprintf(f, Cam_txt)
 		}
 	} else {
 		fmt.Fprintln(f, "No cameras in this room to reboot.")
