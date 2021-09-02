@@ -16,7 +16,7 @@ import (
 	"github.com/byuoitav/common/v2/events"
 )
 
-var version = "0.7"
+var version = "0.8"
 var hub_url = ""
 var layout = "2006-01-02T15:04:05"
 
@@ -101,7 +101,7 @@ func main() {
 	room_name := split[0] + "-" + split[1]
 
 	//get the list of devices
-	db := db.GetDBWithCustomAuth(os.Getenv("COUCH_ADDR"), os.Getenv("COUCH_USER"), os.Getenv("COUCH_PASS"))
+	db := db.GetDBWithCustomAuth(os.Getenv("LOCAL_ADDR"), os.Getenv("LOCAL_USER"), os.Getenv("LOCAL_PASS"))
 	devs, err := db.GetDevicesByRoomAndRole(rm, "VideoOut")
 	if err != nil {
 		fmt.Fprintf(f, "Error getting Video out devices from database: %v.\n", err.Error())
