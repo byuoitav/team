@@ -4,5 +4,7 @@ To get started please take a look at the [wiki](https://github.com/byuoitav/team
 
 Useful Links:
 
-[wiki](https://github.com/byuoitav/team/wiki)
-[Microservices](https://github.com/byuoitav/team/wiki/Microservices)
+|Site|Description|
+|---|---|
+|[wiki](https://github.com/byuoitav/team/wiki)|Full Wiki with explanations|
+|[Microservices](https://github.com/byuoitav/team/wiki/Microservices)|List of Microservices and Ports|
