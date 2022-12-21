@@ -6,5 +6,5 @@ Useful Links:
 
 |Site|Description|
 |---|---|
-|[wiki](https://github.com/byuoitav/team/wiki)|Full Wiki with explanations|
+|[Wiki](https://github.com/byuoitav/team/wiki)|Full Wiki with explanations|
 |[Microservices](https://github.com/byuoitav/team/wiki/Microservices)|List of Microservices and Ports|
